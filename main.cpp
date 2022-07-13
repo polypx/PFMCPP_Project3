@@ -201,6 +201,12 @@ Thing 1)   Piano
     3) press soft pedal
  */
 
+struct Piano
+{
+
+};
+
+
 /*
 Thing 2) tree
 5 properties:
@@ -214,6 +220,12 @@ Thing 2) tree
     2) sway in the wind
     3) house squirrels
  */
+
+struct Tree
+{
+
+};
+
 
 /*
 Thing 3) city    
@@ -229,6 +241,11 @@ Thing 3) city
     3) increase population
  */
 
+struct City
+{
+
+};
+
 /*
 Thing 4) farm
 5 properties:
@@ -242,6 +259,11 @@ Thing 4) farm
     2) raise cattle
     3) pay taxes
  */
+
+struct Farm
+{
+
+};
 
 /*
 Thing 5) Control Room
@@ -258,6 +280,11 @@ Thing 5) Control Room
     3) power on or off
  */
 
+struct ControlRoom
+{
+
+};
+
 /*
 Thing 6) Live Room
     5 properties:
@@ -272,6 +299,11 @@ Thing 6) Live Room
     2) hold instruments
     3) provide lighting
  */
+
+struct LiveRoom
+{
+
+};
 
 /*
 Thing 7) Computer
@@ -288,7 +320,10 @@ Thing 7) Computer
     3) crash
  */
 
+struct Computer
+{
 
+};
 /*
 Thing 8) Mixing Console
     5 properties:
@@ -304,6 +339,11 @@ Thing 8) Mixing Console
     3) provide phantom power
  */
 
+struct MixingConsole
+{
+
+};
+
 /*
 Thing 9) Microphone
     5 properties:
@@ -318,6 +358,11 @@ Thing 9) Microphone
     2) plug in
     3) change polar pattern
  */
+
+struct Microphone
+{
+
+};
 
 /*
 Thing 10)
@@ -336,6 +381,10 @@ Thing 10)
         charge client
 */
 
+struct RecordingStudio
+{
+
+};
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
