@@ -53,51 +53,51 @@ Sub Object 1: Steering Wheel
     Name 4 things you'll find on the:    Steering Wheel
         1) paddle shifters
         2) 'cruise control' controls
-        3) 
-        4) 
+        3) horn
+        4) phone controls
     Name 2 things you can do with the:   Steering Wheel
         1) adjust cruise control settings.
-        2)
+        2) sound horn
         
 Sub Object 2: Instrument Cluster
     Name 4 things you'll find on the:   Instrument Cluster
-        1)
-        2)
-        3)
-        4)
+        1) gas gauge
+        2) speedometer    
+        3) tachometer
+        4) thermometer
     Name 3 things you can do with the:   Instrument Cluster
-        1)
-        2)
-        3)
+        1) checkSpeed
+        2) checkRPM
+        3) checkGasLevel
     
 Sub Object 3: Environment Controls
     Name 3 things you'll find on the:    Environment Controls
-        1)
-        2)
-        3)
+        1) fan
+        2) heater
+        3) air conditioning
     Name 3 things you can do with the:   Environment Controls
-        1)
-        2)
-        3)
+        1) turn on fan
+        2) adjust heating
+        3) adjust AC
 
 Sub Object 4: Infotainment System
     Name 3 things you'll find on the:    Infotainment System
-        1)
-        2)
-        3)
+        1) choose audio source (radio, mp3, etc)
+        2) volume control
+        3) radio station control
     Name 3 things you can do with the:   Infotainment System
-        1)
-        2)
-        3)
+        1) adjust volume
+        2) change radio station
+        3) turn it on or off
 
 Sub Object 5: Seat 
     Name 3 things you'll find on the:    Seat
-        1)
-        2)
-        3)
+        1) cushion
+        2) head rest
+        3) seatbelt
     Name 2 things you can do with the:   Seat
-        1)
-        2)
+        1) move seat forward
+        2) tilt seat backward
 */
 
 /*
@@ -154,61 +154,7 @@ Part 1b Assignment: 1 Step
         'int float double bool char std::string'.
 */
 
-/*
-Thing 1)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
 
-/*
-Thing 2)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 3)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 4)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
 
  /*
 Part 1c - Lesson
@@ -256,6 +202,9 @@ Part 1c example:
     these 5 Sub Objects will need to be defined with 5 primitive 
     properties and 3 actions EACH.
 */
+
+
+
 /*
 ===================
 Part 1c assignment: 2 steps
@@ -279,19 +228,7 @@ Define an object that is made of 5 sub-objects.
     you'll define these 5 sub-objects in Part 1d.
 */
 
-/*
-Thing 10)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
+
 
 /*
 Part 1d - Lesson
@@ -385,76 +322,6 @@ Step 3 is written below UDTs 5 - 9
 */
 
 /*
-Thing 5)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 6)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 7)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 8)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 9)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
 ===================
 Part 1d assignment: Step 3
 ===================
@@ -473,6 +340,155 @@ I will review the pseudo-code that you have written.
 */
 
 
+
+/*
+Thing 1)   Piano
+5 properties:
+    1) height (float)
+    2) width (float)
+    3) weight (float)
+    4) number of keys (int)
+    5) number of pedals (int)
+3 things it can do:
+    1) play keys
+    2) press sustain pedal
+    3) press soft pedal
+ */
+
+/*
+Thing 2) tree
+5 properties:
+    1) height (float)
+    2) number of leaves (int)
+    3) deciduous or coniferous (bool)
+    4) age (int)
+    5) dead or alive (bool)
+3 things it can do:
+    1) grow
+    2) sway in the wind
+    3) house squirrels
+ */
+
+/*
+Thing 3) city    
+5 properties:
+    1) name (std::string)
+    2) country (std::string)
+    3) population (int)
+    4) latitude (float)
+    5) longitude (float)
+3 things it can do:
+    1) expand
+    2) make laws
+    3) increase population
+ */
+
+/*
+Thing 4) farm
+5 properties:
+    1) owner (std::string)
+    2) acreage (float)
+    3) district (std::string)
+    4) annual income (int)
+    5) number of employees (int)
+3 things it can do:
+    1) grow vegetables
+    2) raise cattle
+    3) pay taxes
+ */
+
+/*
+Thing 5) Control Room
+    5 properties:
+    1) length (int)
+    2) width (int)
+    3) height (int)
+    4) monitor brand (std::string)
+    5) number of seats (int)
+
+    3 things it can do:
+    1) seat engineer
+    2) house console
+    3) power on or off
+ */
+
+/*
+Thing 6) Live Room
+    5 properties:
+    1) length (int)
+    2) width (int)
+    3) height (int)
+    4) wall material (std::string)
+    5) floor material (std::string)
+
+    3 things it can do:
+    1) seat musician
+    2) hold instruments
+    3) provide lighting
+ */
+
+/*
+Thing 7) Computer
+    5 properties:
+    1) brand (std::string)
+    2) CPU speed (int)
+    3) RAM size GB (int)
+    4) age (int)
+    5) price (int)
+
+    3 things it can do:
+    1) turn on or off
+    2) run software
+    3) crash
+ */
+
+
+/*
+Thing 8) Mixing Console
+    5 properties:
+    1) brand (std::string)
+    2) number of channels (int)
+    3) inline or split line (bool)
+    4) price (int)
+    5) digital or analog (bool)
+
+    3 things it can do:
+    1) turn on or off
+    2) mix channels
+    3) provide phantom power
+ */
+
+/*
+Thing 9) Microphone
+    5 properties:
+    1) brand (std::string)
+    2) dynamic or condenser (bool)
+    3) polar pattern (std::string)
+    4) age (int)
+    5) price (int)
+
+    3 things it can do:
+    1) turn on
+    2) plug in
+    3) change polar pattern
+ */
+
+/*
+Thing 10)
+    Recording Studio
+
+    A Recording Studio is built using the following 5 UDTs:
+        Control Room
+        Live Room
+        Computer
+        Mixing Console
+        Microphone
+
+    A Recording Studio has 3 things it can do:
+        record sound
+        play back sound
+        charge client
+*/
 
 
 /*
