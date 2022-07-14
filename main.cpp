@@ -394,10 +394,33 @@ struct LiveRoom
     // 5) floor material (std::string)
     std::string floorMaterial = "wood";
 
+    struct Musician
+    {
+        std::string name = "John";
+        std::string mainInstrument = "Piano";
+        int yearsExperience = 1;
+        int hourlyRate = 75;
+
+        void callMusician();
+        bool createContract(); // returns contract created or not
+        int totalHoursUnpaid(); // returns total hours not yet paid
+    };
+
+    struct Equipment
+    {
+        std::string instrument1 = "Piano";
+        std::string instrument2 = "DrumKit";
+        std::string instrument3 = "Hammond Organ";
+
+        void tunePiano(); 
+        bool switchHammond(); // returns power state of Hammond organ
+        bool enableSnaresOnSnareDrum(); // returns snare wires state on snare drum, on/off
+    };
+
     // 1) seat musician
-    void seatMusician(std::string musicianName);
-    // 2) hold instruments
-    void placeInstrument(std::string instrumentName);
+    void seatMusician(Musician John);
+    // 2) hold equipment
+    void placeEquipment(Equipment steinwayPiano);
     // 3) provide lighting
     bool switchLights(); // returns state of live room lighting
 };
@@ -459,18 +482,33 @@ struct MixingConsole
     // 2) number of channels (int)
     int numberOfChannels = 48;
     // 3) inline or split line console (bool)
-    bool inlineConsole = true;    // stumbled across a special word 'inline' here and had to change to inlineConsole to prevent Run error
+    bool inlineConsole = true;    // stumbled across a special word 'inline' here, change to inlineConsole to prevent Run error
     // 4) price (int)
     int price = 200000;
     // 5) digital or analog (bool)
     bool digital = false;
 
-    // 1) turn on or off
-    bool switchOnOff(); // returns current power state
+    struct Equaliser
+    {
+        bool switchEqualiser;
+        float highPassFilter = 20.0f;
+        float lowPassFilter = 20000.0f;
+        float midBandFreq = 1000.0f;
+        float midBandGain = 0.f;
+        float midBandQ = 1.0f;
+
+        void setMidBand(float frequency = 1000.f, float gain = 0.f, float quality = 1.f);
+        void setHighPassFilter(float frequency = 20.f);
+        void setLowPassFilter(float frequency = 20.f);
+    }; 
+
+    // 1) turn channel on or off
+    bool switchOnOff(int channel); // returns current channel mute state
     // 2) mix channels
     std::string mixChannels(int channelA, int channelB, std::string outputFileName); //returns output file name
-    // 3) provide phantom power on any of the channels
-    bool switchPhantomPower(int channelNumber); // returns state of phantom power on that channel
+    // 3) enable EQ on a channel
+    bool enableEqualiser(Equaliser channel); // enables the EQ on a specific channel, returns current state
+
 };
 
 /*
@@ -501,12 +539,18 @@ struct Microphone
     // 5) price (int)
     int price = 3600;
 
+    struct MultiPolarPattern
+    {
+        int patternChoice; // 0 omni, 1 cardioid, 2 bipolar
+        int setPolarPattern(int polarPatternChoice = 0); // returns polar pattern selection as int
+    }; 
+
     // 1) turn on
     bool switchOnOff(); // returns current power state
     // 2) plug in
     void plugInMicrophone();
     // 3) change polar pattern
-    int changePolarPattern(int polarPattern); // returns int of polar pattern selection, if mic is multi pattern
+    int changePolarPattern(int polarPatternChoice = 0); // returns int of polar pattern selection
 };
 
 /*
@@ -535,11 +579,11 @@ struct RecordingStudio
     Microphone earthworks;
 
     //     record sound
-    void recordSound();
+    void recordSound(MixingConsole Neve);
     //     play back sound
-    void playBackSound();
-    //     charge client
-    int chargeClient(int studioHours);  // returns total charge to client
+    void playBackSound(MixingConsole Neve);
+    //     pay musician 
+    int payMusician(LiveRoom John);  // pays musician for hours he was playing
 };
 
 /*
