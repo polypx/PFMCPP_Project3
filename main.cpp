@@ -192,6 +192,19 @@ struct Piano
     void pressSoftPedal();
 };
 
+void Piano::playKey(int keyNumber)
+{
+    if (keyNumber > numberOfKeys)
+    {
+       std::cout << "that note is too high \n"; 
+    }    
+}
+void Piano::pressSustainPedal()
+{
+}
+void Piano::pressSoftPedal()
+{
+}
 
 
 
@@ -202,12 +215,29 @@ struct Tree
     bool Coniferous = false;
     int age = 20;
     bool Alive = true;
+    int numberOfSquirrels = 0;
 
     void grow();
     void swayInTheWind(double windSpeed);
     int checkSquirrelResidents(); // returns number of squirrels resident
 };
 
+void Tree::grow()
+{
+}
+
+void Tree::swayInTheWind(double windSpeed)
+{
+    if(windSpeed < 0)
+    {
+        std::cout << "negative wind speed not allowed \n";      
+    }    
+}
+
+int Tree::checkSquirrelResidents()
+{
+    return numberOfSquirrels;
+}
 
 
 
@@ -215,6 +245,7 @@ struct City
 {
     std::string name = "Toronto";
     std::string country = "Canada";
+    std::string newLawName = "Friday's Off";
     int population = 5000000;
     float latitude = 43.6532f;    
     float longitude = -79.3470f;  
@@ -223,6 +254,26 @@ struct City
     std::string createLaw(); // returns new law Name
     int updatePopulation(int immigrants, int emigrants, int births, int deaths);  // returns updated population
 };
+
+void City::expand(float expansionRate)
+{
+    if(expansionRate < 0.f)
+    {
+        std::cout << "we're shrinking! \n";      
+    } 
+}
+
+std::string City::createLaw()
+{
+  return newLawName;  
+}
+
+int City::updatePopulation(int immigrants, int emigrants, int births, int deaths)
+{
+    population = population + immigrants - emigrants + births - deaths;
+    return population;
+}
+
 
 
 
@@ -235,10 +286,24 @@ struct Farm
     int numberEmployees = 5;
     void growVegetable(std::string vegetableType);
     void raiseCattle(std::string cattleType);
-    int payTaxes(int totalProfit); // returns taxes paid
+    int payTaxes(int totalProfit); // returns taxes owed
 
 };
 
+void Farm::growVegetable(std::string vegetableType)
+{
+        std::cout << "we're growing  " << vegetableType;      
+}
+
+void Farm::raiseCattle(std::string cattleType)
+{
+        std::cout << "we're raising  " << cattleType;      
+}
+
+int Farm::payTaxes(int totalProfit)
+{ 
+    return totalProfit / 2 ;
+}
 
 
 struct ControlRoom
@@ -248,11 +313,27 @@ struct ControlRoom
     int height = 2;
     std::string monitorBrand = "ATC";
     int numberSeats = 3;
+    bool studioPowerState;
 
     void seatEngineer(std::string engineerName);
     void houseConsole();
     bool switchStudioPower(); // returns state of studio power
 };
+
+void ControlRoom::seatEngineer(std::string engineerName)
+{
+        std::cout << "Today we're enjoying the mixing skills of  " << engineerName;      
+}
+
+void ControlRoom::houseConsole()
+{
+}
+
+bool ControlRoom::switchStudioPower()
+{
+    studioPowerState = !studioPowerState;
+    return studioPowerState;
+}
 
 
 
@@ -263,6 +344,7 @@ struct LiveRoom
     int height = 4;
     std::string wallMaterial = "cloth";
     std::string floorMaterial = "wood";
+    bool lightsCurrentState;
 
     struct Musician
     {
@@ -285,6 +367,7 @@ struct LiveRoom
         void tunePiano(); 
         bool switchHammond(); // returns power state of Hammond organ
         bool enableSnaresOnSnareDrum(); // returns snare wires state on snare drum, on/off
+
     };
 
     void seatMusician(Musician John);
@@ -292,6 +375,21 @@ struct LiveRoom
     bool switchLights(); // returns state of live room lighting
 };
 
+void LiveRoom::seatMusician(Musician John)
+{
+    std::cout << "Today we're enjoying the dulcet tones of  " << John.name;     
+}
+
+void LiveRoom::placeEquipment(Equipment instrumentType)
+{
+    std::cout << "We have taken delivery of a " << instrumentType.instrument1;     
+}
+
+bool LiveRoom::switchLights()
+{
+    lightsCurrentState = !lightsCurrentState;
+    return lightsCurrentState;
+}
 
 
 struct Computer
