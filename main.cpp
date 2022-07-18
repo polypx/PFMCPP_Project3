@@ -239,6 +239,7 @@ struct LiveRoom
     std::string wallMaterial = "cloth";
     std::string floorMaterial = "wood";
     bool lightsCurrentState;
+    std::string studioName = "Studio A";
 
     struct Musician
     {
@@ -371,7 +372,6 @@ int Microphone::changePolarPattern(int polarPatternChoice)
     return polarPatternChoice;
 }
 
-
 struct RecordingStudio
 {
     ControlRoom controlRoomA;
@@ -382,8 +382,25 @@ struct RecordingStudio
 
     void recordSound(MixingConsole Neve);
     void playBackSound(MixingConsole Neve);
-    int payMusician(LiveRoom John);  // pays musician for hours he was playing
+    int bookStudio(LiveRoom John, int hours = 5);  // returns number of hours booked
 };
+
+void RecordingStudio::recordSound(MixingConsole chosenConsole)
+{
+    std::cout << "Recording on  " << chosenConsole.brand;   
+}
+
+void RecordingStudio::playBackSound(MixingConsole chosenConsole)
+{
+    std::cout << "Playing back on  " << chosenConsole.brand;   
+}
+
+int RecordingStudio::bookStudio(LiveRoom studioChoice, int time )
+{
+    std::cout << "Booking studio  " << studioChoice.studioName;   
+    return time;
+}
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
