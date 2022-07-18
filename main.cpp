@@ -186,12 +186,12 @@ struct Farm
 
 void Farm::growVegetable(std::string vegetableType)
 {
-        std::cout << "we're growing  " << vegetableType;      
+    std::cout << "we're growing  " << vegetableType;      
 }
 
 void Farm::raiseCattle(std::string cattleType)
 {
-        std::cout << "we're raising  " << cattleType;      
+    std::cout << "we're raising  " << cattleType;      
 }
 
 int Farm::payTaxes(int totalProfit)
@@ -308,6 +308,8 @@ struct MixingConsole
     bool inlineConsole = true;    // stumbled across a special word 'inline' here, change to inlineConsole to prevent Run error
     int price = 200000;
     bool digital = false;
+    bool powerState;
+    int channelMix;
 
     struct Equaliser
     {
@@ -323,11 +325,38 @@ struct MixingConsole
         void setLowPassFilter(float frequency = 20.f);
     }; 
 
-    bool switchOnOff(int channel); // returns current channel mute state
-    std::string mixChannels(int channelA, int channelB, std::string outputFileName); //returns output file name
-    bool enableEqualiser(Equaliser channel); // enables the EQ on a specific channel, returns current state
+    bool switchOnOff(); // returns current power state
+    int mixChannels(int channelA, int channelB); //returns mixed output
+    bool enableEqualiser(Equaliser thisEQ); // enables or disables the Equaliser
 
 };
+
+
+void MixingConsole::Equaliser::setMidBand(float frequency, float gain, float quality)
+{
+    midBandFreq = frequency;
+    midBandGain = gain;
+    midBandQ = quality;
+}
+
+bool MixingConsole::switchOnOff()
+{
+    powerState = !powerState;
+    return powerState;
+}
+
+int MixingConsole::mixChannels(int channelA, int channelB)
+{
+    channelMix = channelA + channelB;
+    return channelMix;
+}
+
+bool MixingConsole::enableEqualiser(Equaliser exampleEQ)
+{
+    exampleEQ.switchEqualiser = !exampleEQ.switchEqualiser;
+    return exampleEQ.switchEqualiser;
+}
+
 
 
 
