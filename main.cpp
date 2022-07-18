@@ -294,11 +294,27 @@ struct Computer
     int RAMsize = 64;
     int age = 2;
     int price = 2400;
+    bool powerState;
 
     bool switchOnOff(); // returns current power state
-    void runSoftware(std::string applicationName);
+    std::string runSoftware(std::string applicationName); // return app name
     void crash();
 };
+
+bool Computer::switchOnOff()
+{
+    powerState = !powerState;
+    return powerState;
+}
+
+std::string Computer::runSoftware(std::string MSWord)
+{
+    return MSWord;
+}
+
+void Computer::crash()
+{
+}
 
 
 struct MixingConsole
