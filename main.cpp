@@ -481,7 +481,7 @@ struct Microphone
 {
     Microphone();
 
-    std::string brand = "Schoeps";
+    std::string brand = "xxx";
     bool condenser = true;
     std::string polarPattern = "Cardioid";
     int age = 6;
@@ -534,7 +534,7 @@ struct RecordingStudio
     LiveRoom defaultLiveRoom;
     Computer iMac;
     MixingConsole neveDesk;
-    Microphone earthworks;
+    Microphone condenserMic;
 
     
     void recordSound(MixingConsole Neve);
@@ -544,7 +544,7 @@ struct RecordingStudio
 
 RecordingStudio::RecordingStudio()
 {
-    name = "Electric Lady";
+    
     std::cout << "RecordingStudio being constructed." << std::endl;
 }
 
@@ -611,9 +611,16 @@ int main()
     std::cout << "This farm owes $" <<  oldmcdonalds.payTaxes(150000) << " in taxes." << std::endl;
     
     
-    RecordingStudio factorysound; // RecordingStudio constructs all the other UDTs included in it
+    RecordingStudio factorysound;   // the RecordingStudio instatiate constructs all the other UDTs included in it
+                                    // but those all set to defaults within their definitions, so... how 
+                                    // do we construct an entire RecordingStudio fresh? 
+    factorysound.name = "Factory Sound";
+    
     std::cout << factorysound.name << " studio has a " << factorysound.neveDesk.numberOfChannels << " channel " << factorysound.neveDesk.brand << " mixing desk." << std::endl;
 
+    factorysound.condenserMic.brand = "Schoeps";
+    std::cout << "We'll be recording with the " << factorysound.condenserMic.brand  << std::endl;
+    
     factorysound.defaultControlRoom.seatEngineer("Bobby V");
     
     LiveRoom::Musician tony;
