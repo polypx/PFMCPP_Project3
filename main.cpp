@@ -362,7 +362,16 @@ void LiveRoom::placeEquipment(Equipment instrumentType)
 bool LiveRoom::switchLights()
 {
     lightsCurrentState = !lightsCurrentState;
+    if (lightsCurrentState)
+    {
+        std::cout << "The lights are currently on."  << std::endl; 
+    } else
+    {
+        std::cout << "The lights are currently off."  << std::endl; 
+    }
+    
     return lightsCurrentState;
+    
 }
 
 
@@ -609,6 +618,8 @@ int main()
     
     LiveRoom::Musician tony;
     factorysound.defaultLiveRoom.seatMusician(tony, "Tony");
+
+    factorysound.defaultLiveRoom.switchLights();
     
     std::cout << "good to go!" << std::endl;
 }
