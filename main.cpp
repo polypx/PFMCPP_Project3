@@ -78,11 +78,13 @@ struct Piano
 {
     Piano();
 
+    
     int height = 132;
     int width = 198;
     int weight = 260;
     int numberOfKeys = 88;
     int numberOfPedals = 2;
+    std::string brand = "Heintzman";
 
     void playKey(int keyNumber);
     void pressSustainPedal();
@@ -97,8 +99,13 @@ void Piano::playKey(int keyNumber)
 {
     if (keyNumber > numberOfKeys)
     {
-       std::cout << "that note is too high \n"; 
+       std::cout << "that note is too high" << std::endl; 
     }    
+    else
+    {
+        std::cout << "The " << brand << " piano is playing key " <<  keyNumber << std::endl;
+    }    
+  
 }
 void Piano::pressSustainPedal()
 {
@@ -122,6 +129,7 @@ struct Tree
 
     void grow();
     void swayInTheWind(double windSpeed);
+    void setSquirrelResidents(int number);
     int checkSquirrelResidents(); // returns number of squirrels resident
 };
 
@@ -141,6 +149,12 @@ void Tree::swayInTheWind(double windSpeed)
         std::cout << "negative wind speed not allowed \n";      
     }    
 }
+
+void Tree::setSquirrelResidents(int number)
+{
+    numberOfSquirrels = number;
+}
+
 
 int Tree::checkSquirrelResidents()
 {
@@ -387,7 +401,7 @@ struct MixingConsole
 
     std::string brand = "Neve";
     int numberOfChannels = 48;
-    bool inlineConsole = true;    //pecial word 'inline' here, change to inlineConsole to prevent Run error
+    bool inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
     int price = 200000;
     bool digital = false;
     bool powerState;
@@ -497,12 +511,15 @@ int Microphone::changePolarPattern(int polarPatternChoice)
 struct RecordingStudio
 {
     RecordingStudio();
+
+    std::string name = "Olympic";
     ControlRoom controlRoomA;
     LiveRoom studioA;
     Computer iMac;
     MixingConsole neveDesk;
     Microphone earthworks;
 
+    
     void recordSound(MixingConsole Neve);
     void playBackSound(MixingConsole Neve);
     int bookStudio(LiveRoom John, int hours = 5);  // returns number of hours booked
@@ -510,12 +527,13 @@ struct RecordingStudio
 
 RecordingStudio::RecordingStudio()
 {
+    name = "Electric Lady";
     std::cout << "RecordingStudio being constructed." << std::endl;
 }
 
 void RecordingStudio::recordSound(MixingConsole chosenConsole)
 {
-    std::cout << "Recording on  " << chosenConsole.brand;   
+    std::cout << "Recording on " << chosenConsole.brand;   
 }
 
 void RecordingStudio::playBackSound(MixingConsole chosenConsole)
@@ -550,11 +568,20 @@ int main()
     Example::main();
     
     Piano steinway;         // instantiate a piano called "steinway"
+    steinway.brand = "Steinway";
+    steinway.playKey(60);   //  play middle C on the steinway
+    
     Tree maple;             // instantiate a tree called "maple"
+    maple.setSquirrelResidents(17);  
+    std::cout << "This tree has " << maple.checkSquirrelResidents() << " squirrels living in it." << std::endl;
+
     Farm oldmcdonalds;      // instatiate a farm
     City toronto;
     
     RecordingStudio factorysound; // RecordingStudio constructs all the other UDTs included in it
+
+
+    std::cout << factorysound.name << " studio has a " << factorysound.neveDesk.numberOfChannels << " channel " << factorysound.neveDesk.brand << " mixing desk." << std::endl;
     
     std::cout << "good to go!" << std::endl;
 }
