@@ -58,6 +58,7 @@ void UDT::printThing()
 int main()
 {
     UDT foo;              //3) instantiating a UDT named 'foo' in main()
+    
     foo.printThing();     //4) calling a member function of the UDT instance.
     
     //5) a std::cout statement accessing foo's member variable.
@@ -75,6 +76,8 @@ int main()
 
 struct Piano
 {
+    Piano();
+
     int height = 132;
     int width = 198;
     int weight = 260;
@@ -86,6 +89,10 @@ struct Piano
     void pressSoftPedal();
 };
 
+Piano::Piano()
+{
+    std::cout << "Piano being constructed" << std::endl; //2) 
+}
 void Piano::playKey(int keyNumber)
 {
     if (keyNumber > numberOfKeys)
@@ -104,6 +111,8 @@ void Piano::pressSoftPedal()
 
 struct Tree
 {
+    Tree();
+
     float height = 10.0f;
     int numberOfLeaves = 3000;
     bool Coniferous = false;
@@ -115,6 +124,11 @@ struct Tree
     void swayInTheWind(double windSpeed);
     int checkSquirrelResidents(); // returns number of squirrels resident
 };
+
+Tree::Tree()
+{
+    std::cout << "Tree being constructed" << std::endl; //3) 
+}
 
 void Tree::grow()
 {
@@ -137,6 +151,8 @@ int Tree::checkSquirrelResidents()
 
 struct City
 {
+    City();
+
     std::string name = "Toronto";
     std::string country = "Canada";
     std::string newLawName = "Friday's Off";
@@ -148,6 +164,11 @@ struct City
     std::string createLaw(); // returns new law Name
     int updatePopulation(int immigrants, int emigrants, int births, int deaths);  // returns updated population
 };
+
+City::City()
+{
+    std::cout << "City being constructed." << std::endl;
+}
 
 void City::expand(float expansionRate)
 {
@@ -173,6 +194,8 @@ int City::updatePopulation(int immigrants, int emigrants, int births, int deaths
 
 struct Farm
 {
+    Farm();
+
     std::string owner = "McDonald";
     float acreage = 250.f;
     std::string district = "Durham";
@@ -183,6 +206,11 @@ struct Farm
     int payTaxes(int totalProfit); // returns taxes owed
 
 };
+
+Farm::Farm()
+{
+    std::cout << "Farm being constructed." << std::endl;
+}
 
 void Farm::growVegetable(std::string vegetableType)
 {
@@ -202,6 +230,8 @@ int Farm::payTaxes(int totalProfit)
 
 struct ControlRoom
 {
+    ControlRoom();
+
     int length = 15;
     int width = 9;
     int height = 2;
@@ -213,6 +243,11 @@ struct ControlRoom
     void houseConsole();
     bool switchStudioPower(); // returns state of studio power
 };
+
+ControlRoom::ControlRoom()
+{
+    std::cout << "ControlRoom being constructed." << std::endl;
+}
 
 void ControlRoom::seatEngineer(std::string engineerName)
 {
@@ -233,6 +268,8 @@ bool ControlRoom::switchStudioPower()
 
 struct LiveRoom
 {
+    LiveRoom();
+
     int length = 26;
     int width = 19;
     int height = 4;
@@ -243,6 +280,7 @@ struct LiveRoom
 
     struct Musician
     {
+        Musician();
         std::string name = "John";
         std::string mainInstrument = "Piano";
         int yearsExperience = 1;
@@ -255,6 +293,8 @@ struct LiveRoom
 
     struct Equipment
     {
+        Equipment();
+
         std::string instrument1 = "Piano";
         std::string instrument2 = "DrumKit";
         std::string instrument3 = "Hammond Organ";
@@ -265,10 +305,27 @@ struct LiveRoom
 
     };
 
+
+
     void seatMusician(Musician John);
     void placeEquipment(Equipment steinwayPiano);
     bool switchLights(); // returns state of live room lighting
 };
+
+LiveRoom::LiveRoom()
+{
+    std::cout << "LiveRoom being constructed." << std::endl;
+}
+
+LiveRoom::Musician::Musician()
+{
+    std::cout << "Musician being constructed." << std::endl;
+}
+
+LiveRoom::Equipment::Equipment()
+{
+    std::cout << "Equipment being constructed." << std::endl;
+}
 
 void LiveRoom::seatMusician(Musician John)
 {
@@ -289,6 +346,8 @@ bool LiveRoom::switchLights()
 
 struct Computer
 {
+    Computer();
+
     std::string brand = "Apple";
     int CPUspeed = 3200;  
     int RAMsize = 64;
@@ -300,6 +359,11 @@ struct Computer
     std::string runSoftware(std::string applicationName); // return app name
     void crash();
 };
+
+Computer::Computer()
+{
+    std::cout << "Computer being constructed." << std::endl;
+}
 
 bool Computer::switchOnOff()
 {
@@ -319,9 +383,11 @@ void Computer::crash()
 
 struct MixingConsole
 {
+    MixingConsole();
+
     std::string brand = "Neve";
     int numberOfChannels = 48;
-    bool inlineConsole = true;    // stumbled across a special word 'inline' here, change to inlineConsole to prevent Run error
+    bool inlineConsole = true;    //pecial word 'inline' here, change to inlineConsole to prevent Run error
     int price = 200000;
     bool digital = false;
     bool powerState;
@@ -347,6 +413,10 @@ struct MixingConsole
 
 };
 
+MixingConsole::MixingConsole()
+{
+    std::cout << "MixingConsole being constructed." << std::endl;
+}
 
 void MixingConsole::Equaliser::setMidBand(float frequency, float gain, float quality)
 {
@@ -378,6 +448,8 @@ bool MixingConsole::enableEqualiser(Equaliser exampleEQ)
 
 struct Microphone
 {
+    Microphone();
+
     std::string brand = "Schoeps";
     bool condenser = true;
     std::string polarPattern = "Cardioid";
@@ -389,6 +461,11 @@ struct Microphone
     void plugInMicrophone();
     int changePolarPattern(int polarPatternChoice = 0); // returns int of polar pattern selection
 };
+
+Microphone::Microphone()
+{
+    std::cout << "Microphone being constructed." << std::endl;
+}
 
 bool Microphone::switchOnOff()
 {
@@ -419,6 +496,7 @@ int Microphone::changePolarPattern(int polarPatternChoice)
 
 struct RecordingStudio
 {
+    RecordingStudio();
     ControlRoom controlRoomA;
     LiveRoom studioA;
     Computer iMac;
@@ -429,6 +507,11 @@ struct RecordingStudio
     void playBackSound(MixingConsole Neve);
     int bookStudio(LiveRoom John, int hours = 5);  // returns number of hours booked
 };
+
+RecordingStudio::RecordingStudio()
+{
+    std::cout << "RecordingStudio being constructed." << std::endl;
+}
 
 void RecordingStudio::recordSound(MixingConsole chosenConsole)
 {
@@ -466,6 +549,12 @@ int main()
 {
     Example::main();
     
+    Piano steinway;         // instantiate a piano called "steinway"
+    Tree maple;             // instantiate a tree called "maple"
+    Farm oldmcdonalds;      // instatiate a farm
+    City toronto;
+    
+    RecordingStudio factorysound; // RecordingStudio constructs all the other UDTs included in it
     
     std::cout << "good to go!" << std::endl;
 }
