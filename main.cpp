@@ -37,39 +37,37 @@
 #include <iostream>
 namespace Example 
 {
-struct UDT  // my user defined type named 'UDT'
-{
-    int thing = 0; //a member variable
-    UDT();              //1) the constructor
-    void printThing();  //the member function
-};
-
-//the function definitions are outside of the class
-UDT::UDT()
-{
-    std::cout << "UDT being constructed!" << std::endl; //1) 
-}
-
-void UDT::printThing()
-{
-    std::cout << "UDT::printThing() " << thing << std::endl;  //2) printing out something interesting
-}
-
-int main()
-{
-    UDT foo;              //3) instantiating a UDT named 'foo' in main()
+    struct UDT  // my user defined type named 'UDT'
+    {
+        int thing = 0; //a member variable
+        UDT();              //1) the constructor
+        void printThing();  //the member function
+    };
     
-    foo.printThing();     //4) calling a member function of the UDT instance.
+    //the function definitions are outside of the class
+    UDT::UDT()
+    {
+        std::cout << "UDT being constructed!" << std::endl; //1) 
+    }
     
-    //5) a std::cout statement accessing foo's member variable.
-    //It also demonstrates a 'ternary expression', which is syntactic shorthand for an 'if/else' expression
-    std::cout << "Is foo's member var 'thing' equal to 0? " << (foo.thing == 0 ? "Yes" : "No") << "\n";
+    void UDT::printThing()
+    {
+        std::cout << "UDT::printThing() " << thing << std::endl;  //2) printing out something interesting
+    }
     
-    return 0;
-}
+    int main()
+    {
+        UDT foo;              //3) instantiating a UDT named 'foo' in main()
+        
+        foo.printThing();     //4) calling a member function of the UDT instance.
+        
+        //5) a std::cout statement accessing foo's member variable.
+        //It also demonstrates a 'ternary expression', which is syntactic shorthand for an 'if/else' expression
+        std::cout << "Is foo's member var 'thing' equal to 0? " << (foo.thing == 0 ? "Yes" : "No") << "\n";
+        
+        return 0;
+    }
 } //end namespace Example
-
-//insert Example::main() into main() of user's repo.
 
 
 
@@ -109,9 +107,12 @@ void Piano::playKey(int keyNumber)
 }
 void Piano::pressSustainPedal()
 {
+    std::cout << "The " << brand << " sustain pedal is pressed. " << std::endl;
 }
+
 void Piano::pressSoftPedal()
 {
+    std::cout << "The " << brand << " soft pedal is pressed. " << std::endl;
 }
 
 
@@ -146,7 +147,10 @@ void Tree::swayInTheWind(double windSpeed)
 {
     if(windSpeed < 0)
     {
-        std::cout << "negative wind speed not allowed \n";      
+        std::cout << "negative wind speed not allowed" << std::endl;       
+    } else
+    {
+        std::cout << "Wind speed is " << windSpeed << std::endl;   
     }    
 }
 
@@ -228,12 +232,12 @@ Farm::Farm()
 
 void Farm::growVegetable(std::string vegetableType)
 {
-    std::cout << "we're growing  " << vegetableType;      
+    std::cout << "We're growing " << vegetableType << std::endl;      
 }
 
 void Farm::raiseCattle(std::string cattleType)
 {
-    std::cout << "we're raising  " << cattleType;      
+    std::cout << "We're raising " << cattleType << std::endl;      
 }
 
 int Farm::payTaxes(int totalProfit)
@@ -265,7 +269,7 @@ ControlRoom::ControlRoom()
 
 void ControlRoom::seatEngineer(std::string engineerName)
 {
-        std::cout << "Today we're enjoying the mixing skills of  " << engineerName;      
+        std::cout << "Today we're enjoying the mixing skills of " << engineerName << std::endl;      
 }
 
 void ControlRoom::houseConsole()
@@ -295,9 +299,10 @@ struct LiveRoom
     struct Musician
     {
         Musician();
+
         std::string name = "John";
         std::string mainInstrument = "Piano";
-        int yearsExperience = 1;
+        int yearsExperience = 10;
         int hourlyRate = 75;
 
         void callMusician();
@@ -321,7 +326,7 @@ struct LiveRoom
 
 
 
-    void seatMusician(Musician John);
+    void seatMusician(Musician musicianName, std::string thisName);
     void placeEquipment(Equipment steinwayPiano);
     bool switchLights(); // returns state of live room lighting
 };
@@ -341,14 +346,17 @@ LiveRoom::Equipment::Equipment()
     std::cout << "Equipment being constructed." << std::endl;
 }
 
-void LiveRoom::seatMusician(Musician John)
+
+void LiveRoom::seatMusician(Musician musicianName, std::string thisName)
 {
-    std::cout << "Today we're enjoying the dulcet tones of  " << John.name;     
+    musicianName.name = thisName;
+    std::cout << "Today we're enjoying the dulcet tones of " << musicianName.name  << std::endl;    
 }
+
 
 void LiveRoom::placeEquipment(Equipment instrumentType)
 {
-    std::cout << "We have taken delivery of a " << instrumentType.instrument1;     
+    std::cout << "We have taken delivery of a " << instrumentType.instrument1  << std::endl;     
 }
 
 bool LiveRoom::switchLights()
@@ -513,8 +521,8 @@ struct RecordingStudio
     RecordingStudio();
 
     std::string name = "Olympic";
-    ControlRoom controlRoomA;
-    LiveRoom studioA;
+    ControlRoom defaultControlRoom;
+    LiveRoom defaultLiveRoom;
     Computer iMac;
     MixingConsole neveDesk;
     Microphone earthworks;
@@ -533,17 +541,17 @@ RecordingStudio::RecordingStudio()
 
 void RecordingStudio::recordSound(MixingConsole chosenConsole)
 {
-    std::cout << "Recording on " << chosenConsole.brand;   
+    std::cout << "Recording on " << chosenConsole.brand  << std::endl;   
 }
 
 void RecordingStudio::playBackSound(MixingConsole chosenConsole)
 {
-    std::cout << "Playing back on  " << chosenConsole.brand;   
+    std::cout << "Playing back on  " << chosenConsole.brand  << std::endl;   
 }
 
 int RecordingStudio::bookStudio(LiveRoom studioChoice, int time )
 {
-    std::cout << "Booking studio  " << studioChoice.studioName;   
+    std::cout << "Booking studio  " << studioChoice.studioName  << std::endl;   
     return time;
 }
 
@@ -570,18 +578,37 @@ int main()
     Piano steinway;         // instantiate a piano called "steinway"
     steinway.brand = "Steinway";
     steinway.playKey(60);   //  play middle C on the steinway
+    steinway.pressSustainPedal(); // press the sustain pedal on the steinway
+    steinway.pressSoftPedal(); // press the sustain pedal on the steinway
+
     
     Tree maple;             // instantiate a tree called "maple"
     maple.setSquirrelResidents(17);  
     std::cout << "This tree has " << maple.checkSquirrelResidents() << " squirrels living in it." << std::endl;
+    maple.swayInTheWind(11);
+    maple.grow();
 
+    
+    City toronto;           // instantiate a city called "toronto"
+    toronto.expand();
+    toronto.createLaw();
+    std::cout << "This population of the city is now " <<  toronto.updatePopulation(4000, 1500, 18000, 17000) << std::endl;
+
+    
     Farm oldmcdonalds;      // instatiate a farm
-    City toronto;
+    oldmcdonalds.growVegetable("potatoes");
+    oldmcdonalds.raiseCattle("chickens");
+    oldmcdonalds.payTaxes(100000);
+    std::cout << "This farm owes $" <<  oldmcdonalds.payTaxes(150000) << " in taxes." << std::endl;
+    
     
     RecordingStudio factorysound; // RecordingStudio constructs all the other UDTs included in it
-
-
     std::cout << factorysound.name << " studio has a " << factorysound.neveDesk.numberOfChannels << " channel " << factorysound.neveDesk.brand << " mixing desk." << std::endl;
+
+    factorysound.defaultControlRoom.seatEngineer("Bobby V");
+    
+    LiveRoom::Musician tony;
+    factorysound.defaultLiveRoom.seatMusician(tony, "Tony");
     
     std::cout << "good to go!" << std::endl;
 }
