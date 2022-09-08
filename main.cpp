@@ -256,7 +256,7 @@ struct ControlRoom
     int height = 2;
     std::string monitorBrand = "ATC";
     int numberSeats = 3;
-    bool studioPowerState;
+    bool studioPowerState; FIXME: initialize your variables
 
     void seatEngineer(std::string engineerName);
     void houseConsole();
@@ -310,6 +310,7 @@ struct LiveRoom
         bool createContract(); // returns contract created or not
         int totalHoursUnpaid(); // returns total hours not yet paid
     };
+
 
     struct Equipment
     {
@@ -386,7 +387,7 @@ struct Computer
     int RAMsize = 64;
     int age = 2;
     int price = 2400;
-    bool powerState;
+    bool powerState; FIXME: initialize your variables
 
     bool switchOnOff(); // returns current power state
     std::string runSoftware(std::string applicationName); // return app name
@@ -423,8 +424,8 @@ struct MixingConsole
     bool inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
     int price = 200000;
     bool digital = false;
-    bool powerState;
-    int channelMix;
+    bool powerState; FIXME: initialize your variables
+    int channelMix; FIXME: initialize your variables
 
     struct Equaliser
     {
@@ -488,7 +489,7 @@ struct Microphone
     std::string polarPattern = "Cardioid";
     int age = 6;
     int price = 3600;
-    bool switchState;
+    bool switchState; FIXME: initialize your variables
 
     bool switchOnOff(); // returns current power state
     void plugInMicrophone();
@@ -513,17 +514,17 @@ void Microphone::plugInMicrophone()
 int Microphone::changePolarPattern(int polarPatternChoice)
 {
     switch (polarPatternChoice)
-        {
-            case 0:
-                polarPattern = "Omni";
-                break;
-            case 1:
-                polarPattern = "Cardioid";
-                break;
-            case 2:
-                polarPattern = "Figure 8";
-                break;
-        }
+    {
+        case 0:
+            polarPattern = "Omni";
+            break;
+        case 1:
+            polarPattern = "Cardioid";
+            break;
+        case 2:
+            polarPattern = "Figure 8";
+            break;
+    }
     return polarPatternChoice;
 }
 
