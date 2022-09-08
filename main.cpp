@@ -148,7 +148,8 @@ void Tree::swayInTheWind(double windSpeed)
     if(windSpeed < 0)
     {
         std::cout << "negative wind speed not allowed" << std::endl;       
-    } else
+    } 
+    else
     {
         std::cout << "Wind speed is " << windSpeed << std::endl;   
     }    
@@ -269,7 +270,7 @@ ControlRoom::ControlRoom()
 
 void ControlRoom::seatEngineer(std::string engineerName)
 {
-        std::cout << "Today we're enjoying the mixing skills of " << engineerName << std::endl;      
+    std::cout << "Today we're enjoying the mixing skills of " << engineerName << std::endl;      
 }
 
 void ControlRoom::houseConsole()
@@ -365,7 +366,8 @@ bool LiveRoom::switchLights()
     if (lightsCurrentState)
     {
         std::cout << "The lights are currently on."  << std::endl; 
-    } else
+    } 
+    else
     {
         std::cout << "The lights are currently off."  << std::endl; 
     }
@@ -610,6 +612,7 @@ int main()
     oldmcdonalds.payTaxes(100000);
     std::cout << "This farm owes $" <<  oldmcdonalds.payTaxes(150000) << " in taxes." << std::endl;
     
+
     
     RecordingStudio factorysound;   // the RecordingStudio instatiate constructs all the other UDTs included in it
                                     // but those all set to defaults within their definitions, so... how 
