@@ -220,6 +220,7 @@ struct Farm
     std::string district = "Durham";
     int annualIncome = 15000000;
     int numberEmployees = 5;
+
     void growVegetable(std::string vegetableType);
     void raiseCattle(std::string cattleType);
     int payTaxes(int totalProfit); // returns taxes owed
@@ -256,7 +257,7 @@ struct ControlRoom
     int height = 2;
     std::string monitorBrand = "ATC";
     int numberSeats = 3;
-    bool studioPowerState; FIXME: initialize your variables
+    bool studioPowerState = false; 
 
     void seatEngineer(std::string engineerName);
     void houseConsole();
@@ -294,7 +295,7 @@ struct LiveRoom
     int height = 4;
     std::string wallMaterial = "cloth";
     std::string floorMaterial = "wood";
-    bool lightsCurrentState;
+    bool lightsCurrentState = false; 
     std::string studioName = "Studio A";
 
     struct Musician
@@ -387,7 +388,7 @@ struct Computer
     int RAMsize = 64;
     int age = 2;
     int price = 2400;
-    bool powerState; FIXME: initialize your variables
+    bool powerState = false; 
 
     bool switchOnOff(); // returns current power state
     std::string runSoftware(std::string applicationName); // return app name
@@ -424,12 +425,12 @@ struct MixingConsole
     bool inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
     int price = 200000;
     bool digital = false;
-    bool powerState; FIXME: initialize your variables
-    int channelMix; FIXME: initialize your variables
+    bool powerState = false; 
+    int channelMix = 0;
 
     struct Equaliser
     {
-        bool switchEqualiser;
+        bool switchEqualiser = false; 
         float highPassFilter = 20.0f;
         float lowPassFilter = 20000.0f;
         float midBandFreq = 1000.0f;
@@ -489,7 +490,7 @@ struct Microphone
     std::string polarPattern = "Cardioid";
     int age = 6;
     int price = 3600;
-    bool switchState; FIXME: initialize your variables
+    bool switchState = false; 
 
     bool switchOnOff(); // returns current power state
     void plugInMicrophone();
