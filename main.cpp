@@ -624,7 +624,6 @@ int main()
                                     // but those all set to defaults within their definitions, so... how 
                                     // do we construct an entire RecordingStudio fresh? 
     factorysound.name = "Factory Sound";
-    
     std::cout << factorysound.name << " studio has a " << factorysound.neveDesk.numberOfChannels << " channel " << factorysound.neveDesk.brand << " mixing desk." << std::endl;
 
     factorysound.condenserMic.brand = "Schoeps";
@@ -636,6 +635,13 @@ int main()
     factorysound.defaultLiveRoom.seatMusician(tony, "Tony");
 
     factorysound.defaultLiveRoom.switchLights();
+
+    std::cout << "Here are some values from initialisations: " << std::endl;
+    std::cout << "Control Room length = " << factorysound.defaultControlRoom.length  << std::endl;
+    std::cout << "Live Room height = " << factorysound.defaultLiveRoom.height  << std::endl;
+    std::cout << "Farm acreage = " << oldmcdonalds.acreage  << std::endl;
+    std::cout << "The city is in  = " << toronto.country  << std::endl;
+
     
     std::cout << "good to go!" << std::endl;
 }
