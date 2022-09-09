@@ -370,7 +370,7 @@ struct Computer
 {
     Computer();
 
-    std::string brand = "Apple";
+    std::string brand = "Apple";                // in CLASS initialisation
     int CPUspeed = 3200;  
     int RAMsize = 64;
     int age = 2;
@@ -407,22 +407,21 @@ struct MixingConsole
 {
     MixingConsole();
 
-    std::string brand = "Neve";
-    int numberOfChannels = 48;
-    bool inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
-    int price = 200000;
-    bool digital = false;
-    bool powerState = false; 
-    int channelMix = 0;
+    std::string brand;
+    int numberOfChannels;
+    bool inlineConsole; //special word 'inline' here, change to inlineConsole to prevent Run error
+    int price;
+    bool digital;
+    bool powerState; 
+    int channelMix;
 
     struct Equaliser
     {
+        Equaliser();
+
         bool switchEqualiser = false; 
-        float highPassFilter = 20.0f;
-        float lowPassFilter = 20000.0f;
-        float midBandFreq = 1000.0f;
-        float midBandGain = 0.f;
-        float midBandQ = 1.0f;
+        float highPassFilter, lowPassFilter, midBandFreq, midBandGain, midBandQ;
+
 
         void setMidBand(float frequency = 1000.f, float gain = 0.f, float quality = 1.f);
         void setHighPassFilter(float frequency = 20.f);
@@ -437,8 +436,27 @@ struct MixingConsole
 
 MixingConsole::MixingConsole()
 {
+    brand = "Neve";                     // in constructory BODY initialisation 
+    numberOfChannels = 48;
+    inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
+    price = 200000;
+    digital = false;
+    powerState = false; 
+    channelMix = 0;
+    
     std::cout << "MixingConsole being constructed." << std::endl;
 }
+
+MixingConsole::Equaliser::Equaliser() :           // in constructor LIST initialise 
+switchEqualiser(false),
+highPassFilter(20.f),
+lowPassFilter(20000.f),
+midBandFreq(1000.f),
+midBandGain(0.f),
+midBandQ(1.f) 
+{
+    std::cout << "Equaliser being constructed." << std::endl;
+} 
 
 void MixingConsole::Equaliser::setMidBand(float frequency, float gain, float quality)
 {
@@ -472,7 +490,7 @@ struct Microphone
 {
     Microphone();
 
-    std::string brand = "xxx";
+    std::string brand = "xxx";                 // in CLASS initialisation
     bool condenser = true;
     std::string polarPattern = "Cardioid";
     int age = 6;
@@ -526,7 +544,6 @@ struct RecordingStudio
     Computer iMac;
     MixingConsole neveDesk;
     Microphone condenserMic;
-
     
     void recordSound(MixingConsole Neve);
     void playBackSound(MixingConsole Neve);
