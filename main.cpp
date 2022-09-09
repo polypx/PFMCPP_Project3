@@ -116,6 +116,7 @@ Alive(true)
 
 void Tree::grow()
 {
+    std::cout << "Tree is " << age << " years old" << std::endl; //3) 
 }
 
 void Tree::swayInTheWind(double windSpeed)
@@ -264,6 +265,14 @@ void ControlRoom::houseConsole()
 bool ControlRoom::switchStudioPower()
 {
     studioPowerState = !studioPowerState;
+    if (studioPowerState)
+    {
+        std::cout << "Studio power is ON. "  << std::endl;       
+    }
+    else
+    {
+        std::cout << "Studio power is OFF. "  << std::endl; 
+    }    
     return studioPowerState;
 }
 
@@ -390,12 +399,20 @@ Computer::Computer()
 bool Computer::switchOnOff()
 {
     powerState = !powerState;
+    if (powerState)
+    {
+        std::cout << "The computer is currently on."  << std::endl; 
+    } 
+    else
+    {
+        std::cout << "The computer is currently off."  << std::endl; 
+    }    
     return powerState;
 }
 
-std::string Computer::runSoftware(std::string MSWord)
+std::string Computer::runSoftware(std::string programName)
 {
-    return MSWord;
+    return programName;
 }
 
 void Computer::crash()
@@ -490,7 +507,7 @@ struct Microphone
 {
     Microphone();
 
-    std::string brand = "xxx";                 // in CLASS initialisation
+    std::string brand = "B&K";                 // in CLASS initialisation
     bool condenser = true;
     std::string polarPattern = "Cardioid";
     int age = 6;
@@ -504,7 +521,7 @@ struct Microphone
 
 Microphone::Microphone()
 {
-    std::cout << "Microphone being constructed." << std::endl;
+    std::cout << brand << " " << polarPattern << " microphone being constructed." << std::endl;
 }
 
 bool Microphone::switchOnOff()
