@@ -42,15 +42,11 @@ int main()
 
 struct Piano
 {
-    Piano();
-
     
-    int height = 132;
-    int width = 198;
-    int weight = 260;
-    int numberOfKeys = 88;
-    int numberOfPedals = 2;
-    std::string brand = "Heintzman";
+    int height, width, weight, numberOfKeys, numberOfPedals;
+    std::string brand = "xxx";
+    
+    Piano();
 
     void playKey(int keyNumber);
     void pressSustainPedal();
@@ -59,8 +55,16 @@ struct Piano
 
 Piano::Piano()
 {
+    height = 132;                      // in constructor BODY initialisation 
+    width = 198;
+    weight = 260;
+    numberOfKeys = 88;
+    numberOfPedals = 2;
+    brand = "Heintzman";
+    
     std::cout << "Piano being constructed" << std::endl; //2) 
 }
+
 void Piano::playKey(int keyNumber)
 {
     if (keyNumber > numberOfKeys)
@@ -87,14 +91,11 @@ void Piano::pressSoftPedal()
 
 struct Tree
 {
-    Tree();
+    int numberOfLeaves, age, numberOfSquirrels;
+    float height;
+    bool Coniferous, Alive;
 
-    float height = 10.0f;
-    int numberOfLeaves = 3000;
-    bool Coniferous = false;
-    int age = 20;
-    bool Alive = true;
-    int numberOfSquirrels = 0;
+    Tree();
 
     void grow();
     void swayInTheWind(double windSpeed);
@@ -102,7 +103,13 @@ struct Tree
     int checkSquirrelResidents(); // returns number of squirrels resident
 };
 
-Tree::Tree()
+Tree::Tree() :                      // in constructor LIST initialisation 
+numberOfLeaves(3000),
+age(20),
+numberOfSquirrels(0),
+height(10.f),
+Coniferous(false),
+Alive(true)
 {
     std::cout << "Tree being constructed" << std::endl; //3) 
 }
@@ -138,14 +145,14 @@ int Tree::checkSquirrelResidents()
 
 struct City
 {
-    City();
-
-    std::string name = "Toronto";
+    std::string name = "Toronto";                   // in CLASS initialisation
     std::string country = "Canada";
     std::string newLawName = "Friday's Off";
     int population = 5000000;
     float latitude = 43.6532f;    
     float longitude = -79.3470f;  
+
+    City();
 
     void expand(float expansionRate = 1.1f);
     std::string createLaw(); // returns new law Name
@@ -181,13 +188,12 @@ int City::updatePopulation(int immigrants, int emigrants, int births, int deaths
 
 struct Farm
 {
-    Farm();
+    
+    int annualIncome, numberEmployees;
+    float acreage;
+    std::string owner, district;
 
-    std::string owner = "McDonald";
-    float acreage = 250.f;
-    std::string district = "Durham";
-    int annualIncome = 15000000;
-    int numberEmployees = 5;
+    Farm();
 
     void growVegetable(std::string vegetableType);
     void raiseCattle(std::string cattleType);
@@ -197,6 +203,12 @@ struct Farm
 
 Farm::Farm()
 {
+    owner = "McDonald";              // in constructor BODY initialisation 
+    acreage = 250.f;
+    district = "Durham";
+    annualIncome = 15000000;
+    numberEmployees = 5;
+    
     std::cout << "Farm being constructed." << std::endl;
 }
 
@@ -220,19 +232,22 @@ struct ControlRoom
 {
     ControlRoom();
 
-    int length = 15;
-    int width = 9;
-    int height = 2;
-    std::string monitorBrand = "ATC";
-    int numberSeats = 3;
-    bool studioPowerState = false; 
+    int length, width, height, numberSeats;
+    bool studioPowerState; 
+    std::string monitorBrand;
 
     void seatEngineer(std::string engineerName);
     void houseConsole();
     bool switchStudioPower(); // returns state of studio power
 };
 
-ControlRoom::ControlRoom()
+ControlRoom::ControlRoom():                 // in constructor LIST initialisation 
+length(15),
+width(9),
+height(2),
+numberSeats(3),
+studioPowerState(false),
+monitorBrand("ATC")
 {
     std::cout << "ControlRoom being constructed." << std::endl;
 }
@@ -256,7 +271,7 @@ bool ControlRoom::switchStudioPower()
 
 struct LiveRoom
 {
-    LiveRoom();
+    LiveRoom();                                // in  CLASS initialisation 
 
     int length = 26;
     int width = 19;
@@ -270,10 +285,8 @@ struct LiveRoom
     {
         Musician();
 
-        std::string name = "John";
-        std::string mainInstrument = "Piano";
-        int yearsExperience = 10;
-        int hourlyRate = 75;
+        std::string name, mainInstrument;
+        int yearsExperience, hourlyRate;
 
         void callMusician();
         bool createContract(); // returns contract created or not
@@ -285,9 +298,7 @@ struct LiveRoom
     {
         Equipment();
 
-        std::string instrument1 = "Piano";
-        std::string instrument2 = "DrumKit";
-        std::string instrument3 = "Hammond Organ";
+        std::string instrument1, instrument2, instrument3;
 
         void tunePiano(); 
         bool switchHammond(); // returns power state of Hammond organ
@@ -309,10 +320,18 @@ LiveRoom::LiveRoom()
 
 LiveRoom::Musician::Musician()
 {
+    name = "John";                         // in constructor BODY initialise 
+    mainInstrument = "Piano";
+    yearsExperience = 10;
+    hourlyRate = 75;
+    
     std::cout << "Musician being constructed." << std::endl;
 }
 
-LiveRoom::Equipment::Equipment()
+LiveRoom::Equipment::Equipment() :         // in constructor LIST initialise 
+instrument1("Piano"),
+instrument2("Guitar"),
+instrument3("Drums")
 {
     std::cout << "Equipment being constructed." << std::endl;
 }
