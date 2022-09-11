@@ -129,24 +129,15 @@ struct Tree
     float height;
     bool Coniferous, Alive;
 
-    Tree();
+    Tree() : numberOfLeaves(3000), age(20), numberOfSquirrels(0), height(10.f), Coniferous(false), Alive(true) {}
 
     void grow();
     void swayInTheWind(double windSpeed);
     void setSquirrelResidents(int number);
     int checkSquirrelResidents(); // returns number of squirrels resident
+    int squirrelPopulationGrowth(int initialPopulation, int numberMonths); // find squirrel population in so many Months
 };
 
-Tree::Tree() :                      // in constructor LIST initialisation 
-numberOfLeaves(3000),
-age(20),
-numberOfSquirrels(0),
-height(10.f),
-Coniferous(false),
-Alive(true)
-{
-    std::cout << "Tree being constructed" << std::endl; //3) 
-}
 
 void Tree::grow()
 {
@@ -173,6 +164,18 @@ void Tree::setSquirrelResidents(int number)
 
 int Tree::checkSquirrelResidents()
 {
+    return numberOfSquirrels;
+}
+
+int Tree::squirrelPopulationGrowth(int initialPopulation, int numberMonths)
+{
+    numberOfSquirrels = initialPopulation;
+    for (int i = 0; i < numberMonths; i = i+3 ) 
+    {
+        numberOfSquirrels = numberOfSquirrels + numberOfSquirrels*2; // population doubles every three months
+        numberOfSquirrels = numberOfSquirrels - 14; // 14 die every two months from random causes    
+    }
+    std::cout << "Squirrel count will be " << numberOfSquirrels << " in " << numberMonths << " months." << std::endl;
     return numberOfSquirrels;
 }
 
@@ -652,11 +655,12 @@ int main()
     
     
     Tree maple;             // instantiate a tree called "maple"
-    maple.setSquirrelResidents(17);  
-    std::cout << "This tree has " << maple.checkSquirrelResidents() << " squirrels living in it." << std::endl;
     maple.swayInTheWind(11);
     maple.grow();
-
+    maple.setSquirrelResidents(17);  
+    std::cout << "This tree currently has " << maple.checkSquirrelResidents() << " squirrels living in it." << std::endl;
+    maple.squirrelPopulationGrowth(maple.numberOfSquirrels, 6); // estimate the squirrel count in 6 months
+    
     
     City toronto;           // instantiate a city called "toronto"
     toronto.expand();
