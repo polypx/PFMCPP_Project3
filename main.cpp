@@ -194,7 +194,7 @@ struct City
 
     void expand(float expansionRate = 1.1f);
     std::string createLaw(); // returns new law Name
-    int updatePopulation(int immigrants, int emigrants, int births, int deaths);  // returns updated population
+    int updatePopulation(int immigrantsYear, int emigrantsYear, int birthsYear, int deathsYear, int years);  
 };
 
 City::City()
@@ -215,9 +215,12 @@ std::string City::createLaw()
   return newLawName;  
 }
 
-int City::updatePopulation(int immigrants, int emigrants, int births, int deaths)
+int City::updatePopulation(int immigrantsYear, int emigrantsYear, int birthsYear, int deathsYear, int years)
 {
-    population = population + immigrants - emigrants + births - deaths;
+    for(int i = 0; i <= years; ++i)
+    {
+    population = population + immigrantsYear - emigrantsYear + birthsYear - deathsYear;
+    }    
     return population;
 }
 
@@ -227,28 +230,18 @@ int City::updatePopulation(int immigrants, int emigrants, int births, int deaths
 struct Farm
 {
     
-    int annualIncome, numberEmployees;
-    float acreage;
-    std::string owner, district;
+    int annualIncome, numberEmployees, chickensTotal, acreage;
+    std::string owner;
 
-    Farm();
+    Farm() : annualIncome(1500000), numberEmployees(5), chickensTotal(50), acreage(4), owner("Dan") {}
 
     void growVegetable(std::string vegetableType);
     void raiseCattle(std::string cattleType);
     int payTaxes(int totalProfit); // returns taxes owed
 
+    int chickenMaximum(int chickens, float percentageIncreaseWeek ); // calculate maximum chickens we can fit on the farm
 };
 
-Farm::Farm()
-{
-    owner = "McDonald";              // in constructor BODY initialisation 
-    acreage = 250.f;
-    district = "Durham";
-    annualIncome = 15000000;
-    numberEmployees = 5;
-    
-    std::cout << "Farm being constructed." << std::endl;
-}
 
 void Farm::growVegetable(std::string vegetableType)
 {
@@ -264,6 +257,23 @@ int Farm::payTaxes(int totalProfit)
 { 
     return totalProfit / 2 ;
 }
+
+int Farm::chickenMaximum(int chickens, float percentageIncreaseWeek )
+{ 
+    int weeks = 1;
+    int maximumChickens = acreage*50; // this is the maximum chickens we can fit
+    float x;
+    x = static_cast<float>(chickens);
+    while (chickens < maximumChickens)
+    { 
+    x = x + x*percentageIncreaseWeek;
+    chickens = static_cast<int>(x);    
+    ++ weeks; 
+    }
+    std::cout << "Farm will be full of chickens in " << weeks << " weeks." << std::endl;    
+    return weeks;
+}
+
 
 
 struct ControlRoom
@@ -627,34 +637,21 @@ int RecordingStudio::bookStudio(LiveRoom studioChoice, int time )
 }
 
 
-/*
- MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
-
- Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
- 
- If you didn't already: 
-    Make a pull request after you make your first commit
-    pin the pull request link and this repl.it link to our DM thread in a single message.
-
- send me a DM to review your pull request when the project is ready for review.
-
- Wait for my code review.
- */
 
 #include <iostream>
 int main()
 {
     Example::main();
     
-    Piano steinway;         // instantiate a piano called "steinway"
+    Piano steinway;         
     steinway.brand = "Steinway";
-    steinway.playKey(60);   //  play middle C on the steinway
-    steinway.pressSustainPedal(); // press the sustain pedal on the steinway
-    steinway.pressSoftPedal(); // press the sustain pedal on the steinway
+    steinway.playKey(60);   
+    steinway.pressSustainPedal(); 
+    steinway.pressSoftPedal(); 
     steinway.countBbnotes(steinway.numberOfKeys);
     
     
-    Tree maple;             // instantiate a tree called "maple"
+    Tree maple;          
     maple.swayInTheWind(11);
     maple.grow();
     maple.setSquirrelResidents(17);  
@@ -662,41 +659,33 @@ int main()
     maple.squirrelPopulationGrowth(maple.numberOfSquirrels, 6); // estimate the squirrel count in 6 months
     
     
-    City toronto;           // instantiate a city called "toronto"
+    City toronto;         
     toronto.expand();
     toronto.createLaw();
-    std::cout << "This population of the city is now " <<  toronto.updatePopulation(4000, 1500, 18000, 17000) << std::endl;
+    std::cout << "This population of the city will be " <<  toronto.updatePopulation(4000, 1500, 18000, 17000, 5)  << " in 5 years." << std::endl;
 
     
-    Farm oldmcdonalds;      // instatiate a farm
+    Farm oldmcdonalds;   
     oldmcdonalds.growVegetable("potatoes");
     oldmcdonalds.raiseCattle("chickens");
     oldmcdonalds.payTaxes(100000);
     std::cout << "This farm owes $" <<  oldmcdonalds.payTaxes(150000) << " in taxes." << std::endl;
-    
+    oldmcdonalds.chickenMaximum(oldmcdonalds.chickensTotal, 0.3f); // how many weeks till farm is full of chickens????
 
     
-    RecordingStudio factorysound;   // the RecordingStudio instatiate constructs all the other UDTs included in it
-                                    // but those all set to defaults within their definitions, so... how 
-                                    // do we construct an entire RecordingStudio fresh? 
-    factorysound.name = "Factory Sound";
-    std::cout << factorysound.name << " studio has a " << factorysound.neveDesk.numberOfChannels << " channel " << factorysound.neveDesk.brand << " mixing desk." << std::endl;
+    RecordingStudio factory; 
+    factory.name = "Factory";
+    std::cout << factory.name << " studio has a " << factory.neveDesk.numberOfChannels << " channel " << factory.neveDesk.brand << " desk." << std::endl;
 
-    factorysound.condenserMic.brand = "Schoeps";
-    std::cout << "We'll be recording with the " << factorysound.condenserMic.brand  << std::endl;
-    
-    factorysound.defaultControlRoom.seatEngineer("Bobby V");
+    factory.condenserMic.brand = "Schoeps";
+    std::cout << "We'll be recording with the " << factory.condenserMic.brand  << std::endl;
+    factory.defaultControlRoom.seatEngineer("Bobby V");
     
     LiveRoom::Musician tony;
-    factorysound.defaultLiveRoom.seatMusician(tony, "Tony");
+    factory.defaultLiveRoom.seatMusician(tony, "Tony");
+    factory.defaultLiveRoom.switchLights();
 
-    factorysound.defaultLiveRoom.switchLights();
 
-    std::cout << "Here are some values from initialisations: " << std::endl;
-    std::cout << "Control Room length = " << factorysound.defaultControlRoom.length  << std::endl;
-    std::cout << "Live Room height = " << factorysound.defaultLiveRoom.height  << std::endl;
-    std::cout << "Farm acreage = " << oldmcdonalds.acreage  << std::endl;
-    std::cout << "The city is in  = " << toronto.country  << std::endl;
 
     
     std::cout << "good to go!" << std::endl;
