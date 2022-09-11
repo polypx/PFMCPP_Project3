@@ -70,32 +70,33 @@ int main()
 //call Example::main() in main()
 
 
-
-
-
 struct Piano
 {
-    
     int height, width, weight, numberOfKeys, numberOfPedals;
-    std::string brand = "xxx";
+    std::string brand;
     
-    Piano();
+    Piano() : height(132), width(198), weight(260), numberOfKeys(88), numberOfPedals(2), brand("x")  { }
 
+    int  countBbnotes(int totalKeys);
     void playKey(int keyNumber);
     void pressSustainPedal();
     void pressSoftPedal();
 };
 
-Piano::Piano()
+int Piano::countBbnotes(int totalKeys)
 {
-    height = 132;                      // in constructor BODY initialisation 
-    width = 198;
-    weight = 260;
-    numberOfKeys = 88;
-    numberOfPedals = 2;
-    brand = "Heintzman";
-    
-    std::cout << "Piano being constructed" << std::endl; //2) 
+    int counter = 0;
+    int i = 0;
+    while(i < totalKeys)
+    {
+        if(i % 12 == 1)
+        {
+        counter += 1;
+        }
+        i += 1;
+    }
+    std::cout << "This piano has " << counter << " Bb octaves." << std::endl;
+    return counter; 
 }
 
 void Piano::playKey(int keyNumber)
@@ -108,8 +109,8 @@ void Piano::playKey(int keyNumber)
     {
         std::cout << "The " << brand << " piano is playing key " <<  keyNumber << std::endl;
     }    
-  
 }
+
 void Piano::pressSustainPedal()
 {
     std::cout << "The " << brand << " sustain pedal is pressed. " << std::endl;
@@ -647,7 +648,8 @@ int main()
     steinway.playKey(60);   //  play middle C on the steinway
     steinway.pressSustainPedal(); // press the sustain pedal on the steinway
     steinway.pressSoftPedal(); // press the sustain pedal on the steinway
-
+    steinway.countBbnotes(steinway.numberOfKeys);
+    
     
     Tree maple;             // instantiate a tree called "maple"
     maple.setSquirrelResidents(17);  
