@@ -33,6 +33,7 @@ Create a branch named Part5
  */
 
 #include <iostream>
+
 namespace Example 
 {
 struct Bar 
@@ -283,22 +284,33 @@ struct ControlRoom
     int length, width, height, numberSeats;
     bool studioPowerState; 
     std::string monitorBrand;
-
+    
+    int  hoursInBudget(int engineerRate, int studioRate, int budget);
     void seatEngineer(std::string engineerName);
     void houseConsole();
     bool switchStudioPower(); // returns state of studio power
+    
 };
 
-ControlRoom::ControlRoom():                 // in constructor LIST initialisation 
-length(15),
-width(9),
-height(2),
-numberSeats(3),
-studioPowerState(false),
-monitorBrand("ATC")
+ControlRoom::ControlRoom()
+: length(15), width(9), height(2), numberSeats(3), studioPowerState(false), monitorBrand("ATC")
 {
     std::cout << "ControlRoom being constructed." << std::endl;
 }
+
+int ControlRoom::hoursInBudget(int engineerRate, int studioRate, int budget)
+{
+    int hours = 0;
+    int cost = 0;
+    while (cost <= budget)
+    {
+        ++hours;
+        cost = hours*engineerRate + hours*studioRate;
+    } 
+    std::cout << "You have " << hours << " hours in your budget." << std::endl;
+    return hours;
+} 
+
 
 void ControlRoom::seatEngineer(std::string engineerName)
 {
@@ -339,10 +351,10 @@ struct LiveRoom
 
     struct Musician
     {
-        Musician();
-
         std::string name, mainInstrument;
         int yearsExperience, hourlyRate;
+
+        Musician() : name("John"), mainInstrument("Piano"), yearsExperience(10), hourlyRate(75) {}
 
         void callMusician();
         bool createContract(); // returns contract created or not
@@ -352,13 +364,13 @@ struct LiveRoom
 
     struct Equipment
     {
-        Equipment();
-
         std::string instrument1, instrument2, instrument3;
 
+        Equipment() : instrument1("Piano"), instrument2("Guitar"), instrument3("Drums")  {}
+
         void tunePiano(); 
-        bool switchHammond(); // returns power state of Hammond organ
-        bool enableSnaresOnSnareDrum(); // returns snare wires state on snare drum, on/off
+        bool switchHammond(); 
+        bool enableSnaresOnSnareDrum(); 
 
     };
 
@@ -366,7 +378,8 @@ struct LiveRoom
 
     void seatMusician(Musician musicianName, std::string thisName);
     void placeEquipment(Equipment steinwayPiano);
-    bool switchLights(); // returns state of live room lighting
+    bool switchLights(); 
+    int calculateMusicianFee(int hours, bool receivesPublishingPercentage);
 };
 
 LiveRoom::LiveRoom()
@@ -374,24 +387,28 @@ LiveRoom::LiveRoom()
     std::cout << "LiveRoom being constructed." << std::endl;
 }
 
-LiveRoom::Musician::Musician()
+int LiveRoom::calculateMusicianFee(int hours, bool receivesPublishingPercentage)
 {
-    name = "John";                         // in constructor BODY initialise 
-    mainInstrument = "Piano";
-    yearsExperience = 10;
-    hourlyRate = 75;
-    
-    std::cout << "Musician being constructed." << std::endl;
+    int musicianFee = 0;    
+    for (int i = 0; i <= hours; ++i)
+    {
+        if(receivesPublishingPercentage == true)
+        {
+            musicianFee += 45;
+                // no overtime fee if receiving album points
+        }
+        else
+        {
+            musicianFee += 115;
+            if(i % 10 == 0)
+            {
+                musicianFee += 30; // overtime fee
+            }                
+        }    
+    }
+    std::cout << "He is charging $" << musicianFee << " for this session." << std::endl;   
+    return musicianFee;
 }
-
-LiveRoom::Equipment::Equipment() :         // in constructor LIST initialise 
-instrument1("Piano"),
-instrument2("Guitar"),
-instrument3("Drums")
-{
-    std::cout << "Equipment being constructed." << std::endl;
-}
-
 
 void LiveRoom::seatMusician(Musician musicianName, std::string thisName)
 {
@@ -436,12 +453,41 @@ struct Computer
     bool switchOnOff(); // returns current power state
     std::string runSoftware(std::string applicationName); // return app name
     void crash();
+    int hoursTillComputerCrash(bool runningProTools);
 };
 
 Computer::Computer()
 {
     std::cout << "Computer being constructed." << std::endl;
 }
+
+int Computer::hoursTillComputerCrash(bool runningProTools)
+{
+    int hours = 0;
+    float heat = 1.1f;
+    float numberOfPlugins = 1.f;
+    float willCrash = 0.3f;
+    while(willCrash < 1.0f )
+    {
+        willCrash = willCrash * heat * numberOfPlugins;
+        numberOfPlugins = numberOfPlugins*1.2f;
+        
+        if (runningProTools == true)
+        {
+            heat = heat * 1.15f;
+        }
+        else
+        {
+            heat = heat * 1.07f;
+        }    
+
+        ++hours;
+    } 
+    std::cout << "Computer will crash in " << hours << " hours." << std::endl;
+    return hours;
+}
+
+
 
 bool Computer::switchOnOff()
 {
@@ -481,15 +527,14 @@ struct MixingConsole
 
     struct Equaliser
     {
-        Equaliser();
-
-        bool switchEqualiser = false; 
+        bool switchEqualiser; 
         float highPassFilter, lowPassFilter, midBandFreq, midBandGain, midBandQ;
 
+        Equaliser() : switchEqualiser(false), highPassFilter(20.f), lowPassFilter(20000.f), midBandFreq(1000.f), midBandGain(0.f), midBandQ(1.f) {}
 
         void setMidBand(float frequency = 1000.f, float gain = 0.f, float quality = 1.f);
         void setHighPassFilter(float frequency = 20.f);
-        void setLowPassFilter(float frequency = 20.f);
+        void setLowPassFilter(float frequency = 20000.f);
     }; 
 
     bool switchOnOff(); // returns current power state
@@ -498,29 +543,13 @@ struct MixingConsole
 
 };
 
+
 MixingConsole::MixingConsole()
-{
-    brand = "Neve";                     // in constructory BODY initialisation 
-    numberOfChannels = 48;
-    inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
-    price = 200000;
-    digital = false;
-    powerState = false; 
-    channelMix = 0;
-    
+: brand("Neve"), numberOfChannels(48), inlineConsole(true), price(200000), digital(false), powerState(false), channelMix(0)
+{   
     std::cout << "MixingConsole being constructed." << std::endl;
 }
 
-MixingConsole::Equaliser::Equaliser() :           // in constructor LIST initialise 
-switchEqualiser(false),
-highPassFilter(20.f),
-lowPassFilter(20000.f),
-midBandFreq(1000.f),
-midBandGain(0.f),
-midBandQ(1.f) 
-{
-    std::cout << "Equaliser being constructed." << std::endl;
-} 
 
 void MixingConsole::Equaliser::setMidBand(float frequency, float gain, float quality)
 {
@@ -566,7 +595,7 @@ struct Microphone
     int changePolarPattern(int polarPatternChoice = 0); // returns int of polar pattern selection
 };
 
-Microphone::Microphone()
+Microphone::Microphone() 
 {
     std::cout << brand << " " << polarPattern << " microphone being constructed." << std::endl;
 }
@@ -611,12 +640,11 @@ struct RecordingStudio
     
     void recordSound(MixingConsole Neve);
     void playBackSound(MixingConsole Neve);
-    int bookStudio(LiveRoom John, int hours = 5);  // returns number of hours booked
+    int bookStudio(LiveRoom John, int hours = 5); 
 };
 
 RecordingStudio::RecordingStudio()
 {
-    
     std::cout << "RecordingStudio being constructed." << std::endl;
 }
 
@@ -683,10 +711,12 @@ int main()
     
     LiveRoom::Musician tony;
     factory.defaultLiveRoom.seatMusician(tony, "Tony");
+    factory.defaultLiveRoom.calculateMusicianFee(31, false);
     factory.defaultLiveRoom.switchLights();
+    
+    factory.defaultControlRoom.hoursInBudget(75, 60, 5000);
 
-
-
+    factory.iMac.hoursTillComputerCrash(true);    
     
     std::cout << "good to go!" << std::endl;
 }
