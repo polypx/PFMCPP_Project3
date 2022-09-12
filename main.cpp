@@ -92,7 +92,7 @@ int Piano::countBbnotes(int totalKeys)
     {
         if(i % 12 == 1)
         {
-        counter += 1;
+            counter += 1;
         }
         i += 1;
     }
@@ -220,7 +220,7 @@ int City::updatePopulation(int immigrantsYear, int emigrantsYear, int birthsYear
 {
     for(int i = 0; i <= years; ++i)
     {
-    population = population + immigrantsYear - emigrantsYear + birthsYear - deathsYear;
+        population = population + immigrantsYear - emigrantsYear + birthsYear - deathsYear;
     }    
     return population;
 }
@@ -262,14 +262,14 @@ int Farm::payTaxes(int totalProfit)
 int Farm::chickenMaximum(int chickens, float percentageIncreaseWeek )
 { 
     int weeks = 1;
-    int maximumChickens = acreage*50; // this is the maximum chickens we can fit
+    int maximumChickens = acreage * 50; // this is the maximum chickens we can fit
     float x;
     x = static_cast<float>(chickens);
     while (chickens < maximumChickens)
     { 
-    x = x + x*percentageIncreaseWeek;
-    chickens = static_cast<int>(x);    
-    ++ weeks; 
+        x = x + x * percentageIncreaseWeek;
+        chickens = static_cast<int>(x);    
+        ++ weeks; 
     }
     std::cout << "Farm will be full of chickens in " << weeks << " weeks." << std::endl;    
     return weeks;
@@ -470,7 +470,7 @@ int Computer::hoursTillComputerCrash(bool runningProTools)
     while(willCrash < 1.0f )
     {
         willCrash = willCrash * heat * numberOfPlugins;
-        numberOfPlugins = numberOfPlugins*1.2f;
+        numberOfPlugins = numberOfPlugins * 1.2f;
         
         if (runningProTools == true)
         {
