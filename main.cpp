@@ -173,8 +173,8 @@ int Tree::squirrelPopulationGrowth(int initialPopulation, int numberMonths)
     numberOfSquirrels = initialPopulation;
     for (int i = 0; i < numberMonths; i = i+3 ) 
     {
-        numberOfSquirrels = numberOfSquirrels + numberOfSquirrels*2; // population doubles every three months
-        numberOfSquirrels = numberOfSquirrels - 14; // 14 die every two months from random causes    
+        numberOfSquirrels = numberOfSquirrels*2;        // population doubles every three months
+        numberOfSquirrels = numberOfSquirrels - 14;     // 14 die every three months from random causes    
     }
     std::cout << "Squirrel count will be " << numberOfSquirrels << " in " << numberMonths << " months." << std::endl;
     return numberOfSquirrels;
