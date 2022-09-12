@@ -104,7 +104,7 @@ void Piano::playKey(int keyNumber)
 {
     if (keyNumber > numberOfKeys)
     {
-       std::cout << "that note is too high" << std::endl; 
+        std::cout << "that note is too high" << std::endl; 
     }    
     else
     {
@@ -171,10 +171,10 @@ int Tree::checkSquirrelResidents()
 int Tree::squirrelPopulationGrowth(int initialPopulation, int numberMonths)
 {
     numberOfSquirrels = initialPopulation;
-    for (int i = 0; i < numberMonths; i = i+3 ) 
+    for (int i = 0; i < numberMonths; i = i + 3 ) 
     {
-        numberOfSquirrels = numberOfSquirrels*2;        // population doubles every three months
-        numberOfSquirrels = numberOfSquirrels - 14;     // 14 die every three months from random causes    
+        numberOfSquirrels = numberOfSquirrels * 2;        // population doubles every three months
+        numberOfSquirrels = numberOfSquirrels - 14;       // 14 die every three months from random causes    
     }
     std::cout << "Squirrel count will be " << numberOfSquirrels << " in " << numberMonths << " months." << std::endl;
     return numberOfSquirrels;
@@ -266,7 +266,7 @@ int Farm::chickenMaximum(int chickens, int percentageIncreaseWeek )
 
     while (chickens < maximumChickens)
     { 
-        chickens = chickens + (chickens * percentageIncreaseWeek)/100 ;
+        chickens = chickens + (chickens * percentageIncreaseWeek) / 100 ;
 
         ++ weeks; 
     }
