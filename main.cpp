@@ -240,7 +240,7 @@ struct Farm
     void raiseCattle(std::string cattleType);
     int payTaxes(int totalProfit); // returns taxes owed
 
-    int chickenMaximum(int chickens, float percentageIncreaseWeek ); // calculate maximum chickens we can fit on the farm
+    int chickenMaximum(int chickens, int percentageIncreaseWeek ); // calculate maximum chickens we can fit on the farm
 };
 
 
@@ -259,16 +259,15 @@ int Farm::payTaxes(int totalProfit)
     return totalProfit / 2 ;
 }
 
-int Farm::chickenMaximum(int chickens, float percentageIncreaseWeek )
+int Farm::chickenMaximum(int chickens, int percentageIncreaseWeek )
 { 
     int weeks = 1;
     int maximumChickens = acreage * 50; // this is the maximum chickens we can fit
-    float x;
-    x = chickens;
+
     while (chickens < maximumChickens)
     { 
-        x = x + x * percentageIncreaseWeek;
-        chickens = x;    
+        chickens = chickens + (chickens * percentageIncreaseWeek)/100 ;
+
         ++ weeks; 
     }
     std::cout << "Farm will be full of chickens in " << weeks << " weeks." << std::endl;    
@@ -698,7 +697,7 @@ int main()
     oldmcdonalds.raiseCattle("chickens");
     oldmcdonalds.payTaxes(100000);
     std::cout << "This farm owes $" <<  oldmcdonalds.payTaxes(150000) << " in taxes." << std::endl;
-    oldmcdonalds.chickenMaximum(oldmcdonalds.chickensTotal, 0.3f); // how many weeks till farm is full of chickens????
+    oldmcdonalds.chickenMaximum(oldmcdonalds.chickensTotal, 30); // how many weeks till farm is full of chickens????
 
     
     RecordingStudio factory; 
