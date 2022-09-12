@@ -264,11 +264,11 @@ int Farm::chickenMaximum(int chickens, float percentageIncreaseWeek )
     int weeks = 1;
     int maximumChickens = acreage * 50; // this is the maximum chickens we can fit
     float x;
-    x = static_cast<float>(chickens);
+    x = chickens;
     while (chickens < maximumChickens)
     { 
         x = x + x * percentageIncreaseWeek;
-        chickens = static_cast<int>(x);    
+        chickens = x;    
         ++ weeks; 
     }
     std::cout << "Farm will be full of chickens in " << weeks << " weeks." << std::endl;    
