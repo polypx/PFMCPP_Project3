@@ -33,6 +33,7 @@ Create a branch named Part5
  */
 
 #include <iostream>
+
 namespace Example 
 {
 struct Bar 
@@ -70,46 +71,47 @@ int main()
 //call Example::main() in main()
 
 
-
-
-
 struct Piano
 {
-    
     int height, width, weight, numberOfKeys, numberOfPedals;
-    std::string brand = "xxx";
+    std::string brand;
     
-    Piano();
+    Piano() : height(132), width(198), weight(260), numberOfKeys(88), numberOfPedals(2), brand("x")  { }
 
+    int  countBbnotes(int totalKeys);
     void playKey(int keyNumber);
     void pressSustainPedal();
     void pressSoftPedal();
 };
 
-Piano::Piano()
+int Piano::countBbnotes(int totalKeys)
 {
-    height = 132;                      // in constructor BODY initialisation 
-    width = 198;
-    weight = 260;
-    numberOfKeys = 88;
-    numberOfPedals = 2;
-    brand = "Heintzman";
-    
-    std::cout << "Piano being constructed" << std::endl; //2) 
+    int counter = 0;
+    int i = 0;
+    while(i < totalKeys)
+    {
+        if(i % 12 == 1)
+        {
+            counter += 1;
+        }
+        i += 1;
+    }
+    std::cout << "This piano has " << counter << " Bb octaves." << std::endl;
+    return counter; 
 }
 
 void Piano::playKey(int keyNumber)
 {
     if (keyNumber > numberOfKeys)
     {
-       std::cout << "that note is too high" << std::endl; 
+        std::cout << "that note is too high" << std::endl; 
     }    
     else
     {
         std::cout << "The " << brand << " piano is playing key " <<  keyNumber << std::endl;
     }    
-  
 }
+
 void Piano::pressSustainPedal()
 {
     std::cout << "The " << brand << " sustain pedal is pressed. " << std::endl;
@@ -128,24 +130,15 @@ struct Tree
     float height;
     bool Coniferous, Alive;
 
-    Tree();
+    Tree() : numberOfLeaves(3000), age(20), numberOfSquirrels(0), height(10.f), Coniferous(false), Alive(true) {}
 
     void grow();
     void swayInTheWind(double windSpeed);
     void setSquirrelResidents(int number);
     int checkSquirrelResidents(); // returns number of squirrels resident
+    int squirrelPopulationGrowth(int initialPopulation, int numberMonths); // find squirrel population in so many Months
 };
 
-Tree::Tree() :                      // in constructor LIST initialisation 
-numberOfLeaves(3000),
-age(20),
-numberOfSquirrels(0),
-height(10.f),
-Coniferous(false),
-Alive(true)
-{
-    std::cout << "Tree being constructed" << std::endl; //3) 
-}
 
 void Tree::grow()
 {
@@ -175,6 +168,18 @@ int Tree::checkSquirrelResidents()
     return numberOfSquirrels;
 }
 
+int Tree::squirrelPopulationGrowth(int initialPopulation, int numberMonths)
+{
+    numberOfSquirrels = initialPopulation;
+    for (int i = 0; i < numberMonths; i = i + 3 ) 
+    {
+        numberOfSquirrels = numberOfSquirrels * 2;        // population doubles every three months
+        numberOfSquirrels = numberOfSquirrels - 14;       // 14 die every three months from random causes    
+    }
+    std::cout << "Squirrel count will be " << numberOfSquirrels << " in " << numberMonths << " months." << std::endl;
+    return numberOfSquirrels;
+}
+
 
 
 struct City
@@ -190,7 +195,7 @@ struct City
 
     void expand(float expansionRate = 1.1f);
     std::string createLaw(); // returns new law Name
-    int updatePopulation(int immigrants, int emigrants, int births, int deaths);  // returns updated population
+    int updatePopulation(int immigrantsYear, int emigrantsYear, int birthsYear, int deathsYear, int years);  
 };
 
 City::City()
@@ -211,9 +216,12 @@ std::string City::createLaw()
   return newLawName;  
 }
 
-int City::updatePopulation(int immigrants, int emigrants, int births, int deaths)
+int City::updatePopulation(int immigrantsYear, int emigrantsYear, int birthsYear, int deathsYear, int years)
 {
-    population = population + immigrants - emigrants + births - deaths;
+    for(int i = 0; i <= years; ++i)
+    {
+        population = population + immigrantsYear - emigrantsYear + birthsYear - deathsYear;
+    }    
     return population;
 }
 
@@ -223,28 +231,18 @@ int City::updatePopulation(int immigrants, int emigrants, int births, int deaths
 struct Farm
 {
     
-    int annualIncome, numberEmployees;
-    float acreage;
-    std::string owner, district;
+    int annualIncome, numberEmployees, chickensTotal, acreage;
+    std::string owner;
 
-    Farm();
+    Farm() : annualIncome(1500000), numberEmployees(5), chickensTotal(50), acreage(4), owner("Dan") {}
 
     void growVegetable(std::string vegetableType);
     void raiseCattle(std::string cattleType);
     int payTaxes(int totalProfit); // returns taxes owed
 
+    int chickenMaximum(int chickens, int percentageIncreaseWeek ); // calculate maximum chickens we can fit on the farm
 };
 
-Farm::Farm()
-{
-    owner = "McDonald";              // in constructor BODY initialisation 
-    acreage = 250.f;
-    district = "Durham";
-    annualIncome = 15000000;
-    numberEmployees = 5;
-    
-    std::cout << "Farm being constructed." << std::endl;
-}
 
 void Farm::growVegetable(std::string vegetableType)
 {
@@ -261,6 +259,22 @@ int Farm::payTaxes(int totalProfit)
     return totalProfit / 2 ;
 }
 
+int Farm::chickenMaximum(int chickens, int percentageIncreaseWeek )
+{ 
+    int weeks = 1;
+    int maximumChickens = acreage * 50; // this is the maximum chickens we can fit
+
+    while (chickens < maximumChickens)
+    { 
+        chickens = chickens + (chickens * percentageIncreaseWeek) / 100 ;
+
+        ++ weeks; 
+    }
+    std::cout << "Farm will be full of chickens in " << weeks << " weeks." << std::endl;    
+    return weeks;
+}
+
+
 
 struct ControlRoom
 {
@@ -269,22 +283,33 @@ struct ControlRoom
     int length, width, height, numberSeats;
     bool studioPowerState; 
     std::string monitorBrand;
-
+    
+    int  hoursInBudget(int engineerRate, int studioRate, int budget);
     void seatEngineer(std::string engineerName);
     void houseConsole();
     bool switchStudioPower(); // returns state of studio power
+    
 };
 
-ControlRoom::ControlRoom():                 // in constructor LIST initialisation 
-length(15),
-width(9),
-height(2),
-numberSeats(3),
-studioPowerState(false),
-monitorBrand("ATC")
+ControlRoom::ControlRoom()
+: length(15), width(9), height(2), numberSeats(3), studioPowerState(false), monitorBrand("ATC")
 {
     std::cout << "ControlRoom being constructed." << std::endl;
 }
+
+int ControlRoom::hoursInBudget(int engineerRate, int studioRate, int budget)
+{
+    int hours = 0;
+    int cost = 0;
+    while (cost <= budget)
+    {
+        ++hours;
+        cost = hours*engineerRate + hours*studioRate;
+    } 
+    std::cout << "You have " << hours << " hours in your budget." << std::endl;
+    return hours;
+} 
+
 
 void ControlRoom::seatEngineer(std::string engineerName)
 {
@@ -325,10 +350,10 @@ struct LiveRoom
 
     struct Musician
     {
-        Musician();
-
         std::string name, mainInstrument;
         int yearsExperience, hourlyRate;
+
+        Musician() : name("John"), mainInstrument("Piano"), yearsExperience(10), hourlyRate(75) {}
 
         void callMusician();
         bool createContract(); // returns contract created or not
@@ -338,13 +363,13 @@ struct LiveRoom
 
     struct Equipment
     {
-        Equipment();
-
         std::string instrument1, instrument2, instrument3;
 
+        Equipment() : instrument1("Piano"), instrument2("Guitar"), instrument3("Drums")  {}
+
         void tunePiano(); 
-        bool switchHammond(); // returns power state of Hammond organ
-        bool enableSnaresOnSnareDrum(); // returns snare wires state on snare drum, on/off
+        bool switchHammond(); 
+        bool enableSnaresOnSnareDrum(); 
 
     };
 
@@ -352,7 +377,8 @@ struct LiveRoom
 
     void seatMusician(Musician musicianName, std::string thisName);
     void placeEquipment(Equipment steinwayPiano);
-    bool switchLights(); // returns state of live room lighting
+    bool switchLights(); 
+    int calculateMusicianFee(int hours, bool receivesPublishingPercentage);
 };
 
 LiveRoom::LiveRoom()
@@ -360,24 +386,28 @@ LiveRoom::LiveRoom()
     std::cout << "LiveRoom being constructed." << std::endl;
 }
 
-LiveRoom::Musician::Musician()
+int LiveRoom::calculateMusicianFee(int hours, bool receivesPublishingPercentage)
 {
-    name = "John";                         // in constructor BODY initialise 
-    mainInstrument = "Piano";
-    yearsExperience = 10;
-    hourlyRate = 75;
-    
-    std::cout << "Musician being constructed." << std::endl;
+    int musicianFee = 0;    
+    for (int i = 0; i <= hours; ++i)
+    {
+        if(receivesPublishingPercentage == true)
+        {
+            musicianFee += 45;
+                // no overtime fee if receiving album points
+        }
+        else
+        {
+            musicianFee += 115;
+            if(i % 10 == 0)
+            {
+                musicianFee += 30; // overtime fee
+            }                
+        }    
+    }
+    std::cout << "He is charging $" << musicianFee << " for this session." << std::endl;   
+    return musicianFee;
 }
-
-LiveRoom::Equipment::Equipment() :         // in constructor LIST initialise 
-instrument1("Piano"),
-instrument2("Guitar"),
-instrument3("Drums")
-{
-    std::cout << "Equipment being constructed." << std::endl;
-}
-
 
 void LiveRoom::seatMusician(Musician musicianName, std::string thisName)
 {
@@ -422,12 +452,41 @@ struct Computer
     bool switchOnOff(); // returns current power state
     std::string runSoftware(std::string applicationName); // return app name
     void crash();
+    int hoursTillComputerCrash(bool runningProTools);
 };
 
 Computer::Computer()
 {
     std::cout << "Computer being constructed." << std::endl;
 }
+
+int Computer::hoursTillComputerCrash(bool runningProTools)
+{
+    int hours = 0;
+    float heat = 1.1f;
+    float numberOfPlugins = 1.f;
+    float willCrash = 0.3f;
+    while(willCrash < 1.0f )
+    {
+        willCrash = willCrash * heat * numberOfPlugins;
+        numberOfPlugins = numberOfPlugins * 1.2f;
+        
+        if (runningProTools == true)
+        {
+            heat = heat * 1.15f;
+        }
+        else
+        {
+            heat = heat * 1.07f;
+        }    
+
+        ++hours;
+    } 
+    std::cout << "Computer will crash in " << hours << " hours." << std::endl;
+    return hours;
+}
+
+
 
 bool Computer::switchOnOff()
 {
@@ -467,15 +526,14 @@ struct MixingConsole
 
     struct Equaliser
     {
-        Equaliser();
-
-        bool switchEqualiser = false; 
+        bool switchEqualiser; 
         float highPassFilter, lowPassFilter, midBandFreq, midBandGain, midBandQ;
 
+        Equaliser() : switchEqualiser(false), highPassFilter(20.f), lowPassFilter(20000.f), midBandFreq(1000.f), midBandGain(0.f), midBandQ(1.f) {}
 
         void setMidBand(float frequency = 1000.f, float gain = 0.f, float quality = 1.f);
         void setHighPassFilter(float frequency = 20.f);
-        void setLowPassFilter(float frequency = 20.f);
+        void setLowPassFilter(float frequency = 20000.f);
     }; 
 
     bool switchOnOff(); // returns current power state
@@ -484,29 +542,13 @@ struct MixingConsole
 
 };
 
+
 MixingConsole::MixingConsole()
-{
-    brand = "Neve";                     // in constructory BODY initialisation 
-    numberOfChannels = 48;
-    inlineConsole = true; //special word 'inline' here, change to inlineConsole to prevent Run error
-    price = 200000;
-    digital = false;
-    powerState = false; 
-    channelMix = 0;
-    
+: brand("Neve"), numberOfChannels(48), inlineConsole(true), price(200000), digital(false), powerState(false), channelMix(0)
+{   
     std::cout << "MixingConsole being constructed." << std::endl;
 }
 
-MixingConsole::Equaliser::Equaliser() :           // in constructor LIST initialise 
-switchEqualiser(false),
-highPassFilter(20.f),
-lowPassFilter(20000.f),
-midBandFreq(1000.f),
-midBandGain(0.f),
-midBandQ(1.f) 
-{
-    std::cout << "Equaliser being constructed." << std::endl;
-} 
 
 void MixingConsole::Equaliser::setMidBand(float frequency, float gain, float quality)
 {
@@ -552,7 +594,7 @@ struct Microphone
     int changePolarPattern(int polarPatternChoice = 0); // returns int of polar pattern selection
 };
 
-Microphone::Microphone()
+Microphone::Microphone() 
 {
     std::cout << brand << " " << polarPattern << " microphone being constructed." << std::endl;
 }
@@ -597,12 +639,11 @@ struct RecordingStudio
     
     void recordSound(MixingConsole Neve);
     void playBackSound(MixingConsole Neve);
-    int bookStudio(LiveRoom John, int hours = 5);  // returns number of hours booked
+    int bookStudio(LiveRoom John, int hours = 5); 
 };
 
 RecordingStudio::RecordingStudio()
 {
-    
     std::cout << "RecordingStudio being constructed." << std::endl;
 }
 
@@ -623,75 +664,58 @@ int RecordingStudio::bookStudio(LiveRoom studioChoice, int time )
 }
 
 
-/*
- MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
-
- Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
- 
- If you didn't already: 
-    Make a pull request after you make your first commit
-    pin the pull request link and this repl.it link to our DM thread in a single message.
-
- send me a DM to review your pull request when the project is ready for review.
-
- Wait for my code review.
- */
 
 #include <iostream>
 int main()
 {
     Example::main();
     
-    Piano steinway;         // instantiate a piano called "steinway"
+    Piano steinway;         
     steinway.brand = "Steinway";
-    steinway.playKey(60);   //  play middle C on the steinway
-    steinway.pressSustainPedal(); // press the sustain pedal on the steinway
-    steinway.pressSoftPedal(); // press the sustain pedal on the steinway
-
+    steinway.playKey(60);   
+    steinway.pressSustainPedal(); 
+    steinway.pressSoftPedal(); 
+    steinway.countBbnotes(steinway.numberOfKeys);
     
-    Tree maple;             // instantiate a tree called "maple"
-    maple.setSquirrelResidents(17);  
-    std::cout << "This tree has " << maple.checkSquirrelResidents() << " squirrels living in it." << std::endl;
+    
+    Tree maple;          
     maple.swayInTheWind(11);
     maple.grow();
-
+    maple.setSquirrelResidents(17);  
+    std::cout << "This tree currently has " << maple.checkSquirrelResidents() << " squirrels living in it." << std::endl;
+    maple.squirrelPopulationGrowth(maple.numberOfSquirrels, 6); // estimate the squirrel count in 6 months
     
-    City toronto;           // instantiate a city called "toronto"
+    
+    City toronto;         
     toronto.expand();
     toronto.createLaw();
-    std::cout << "This population of the city is now " <<  toronto.updatePopulation(4000, 1500, 18000, 17000) << std::endl;
+    std::cout << "This population of the city will be " <<  toronto.updatePopulation(4000, 1500, 18000, 17000, 5)  << " in 5 years." << std::endl;
 
     
-    Farm oldmcdonalds;      // instatiate a farm
+    Farm oldmcdonalds;   
     oldmcdonalds.growVegetable("potatoes");
     oldmcdonalds.raiseCattle("chickens");
     oldmcdonalds.payTaxes(100000);
     std::cout << "This farm owes $" <<  oldmcdonalds.payTaxes(150000) << " in taxes." << std::endl;
-    
+    oldmcdonalds.chickenMaximum(oldmcdonalds.chickensTotal, 30); // how many weeks till farm is full of chickens????
 
     
-    RecordingStudio factorysound;   // the RecordingStudio instatiate constructs all the other UDTs included in it
-                                    // but those all set to defaults within their definitions, so... how 
-                                    // do we construct an entire RecordingStudio fresh? 
-    factorysound.name = "Factory Sound";
-    std::cout << factorysound.name << " studio has a " << factorysound.neveDesk.numberOfChannels << " channel " << factorysound.neveDesk.brand << " mixing desk." << std::endl;
+    RecordingStudio factory; 
+    factory.name = "Factory";
+    std::cout << factory.name << " studio has a " << factory.neveDesk.numberOfChannels << " channel " << factory.neveDesk.brand << " desk." << std::endl;
 
-    factorysound.condenserMic.brand = "Schoeps";
-    std::cout << "We'll be recording with the " << factorysound.condenserMic.brand  << std::endl;
-    
-    factorysound.defaultControlRoom.seatEngineer("Bobby V");
+    factory.condenserMic.brand = "Schoeps";
+    std::cout << "We'll be recording with the " << factory.condenserMic.brand  << std::endl;
+    factory.defaultControlRoom.seatEngineer("Bobby V");
     
     LiveRoom::Musician tony;
-    factorysound.defaultLiveRoom.seatMusician(tony, "Tony");
+    factory.defaultLiveRoom.seatMusician(tony, "Tony");
+    factory.defaultLiveRoom.calculateMusicianFee(31, false);
+    factory.defaultLiveRoom.switchLights();
+    
+    factory.defaultControlRoom.hoursInBudget(75, 60, 5000);
 
-    factorysound.defaultLiveRoom.switchLights();
-
-    std::cout << "Here are some values from initialisations: " << std::endl;
-    std::cout << "Control Room length = " << factorysound.defaultControlRoom.length  << std::endl;
-    std::cout << "Live Room height = " << factorysound.defaultLiveRoom.height  << std::endl;
-    std::cout << "Farm acreage = " << oldmcdonalds.acreage  << std::endl;
-    std::cout << "The city is in  = " << toronto.country  << std::endl;
-
+    factory.iMac.hoursTillComputerCrash(true);    
     
     std::cout << "good to go!" << std::endl;
 }
